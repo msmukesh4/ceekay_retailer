@@ -1,0 +1,2 @@
+class RetailerController < ApplicationController
+end
