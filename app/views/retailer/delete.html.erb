@@ -1,0 +1,24 @@
+<% if !flash[:notice].blank? %>
+    <div class="notice">
+        <%= flash[:notice] %>
+    </div>
+<% end %>
+<h1>Retailer/delete</h1>
+
+<%= link_to("<< Back to List", {:action => 'index'}, :class => 'back-link') %>
+
+<div class="Retailers delete">
+  	<h2>Delete Retailer</h2>
+
+  	<%= form_for(:Retailer, :url => {:action => 'destroy', :id => @retailer.id}) do |f| %>
+
+    	<p>Are you sure you want to permanently delete this Retailer?</p>
+
+    	<p class="reference-name"><%= @retailer.retailer_name %></p>
+
+    	<div class="form-buttons">
+      		<%= submit_tag("Delete Retailer") %>
+    	</div>
+  	<% end %>
+
+</div>

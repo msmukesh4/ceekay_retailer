@@ -1,0 +1,16 @@
+<% if !flash[:notice].blank? %>
+    <div class="notice">
+        <%= flash[:notice] %>
+    </div>
+<% end %>
+
+<div class = "well">
+   <%= form_tag '/upload/create', { :multipart => true } do %>
+    	<p>
+    		<%= file_field_tag 'upload[file]' %>
+    	</p>
+    	<p>
+    		<%= submit_tag "Upload" %>
+    	</p>
+	<% end %>
+</div>

@@ -1,0 +1,22 @@
+<% if !flash[:notice].blank? %>
+    <div class="notice">
+        <%= flash[:notice] %>
+    </div>
+<% end %>
+<h1>Retailer/edit</h1>
+
+<%= link_to("<< Back to List", {:action => 'index'}, :class => 'back-link') %>
+
+<div class="Retailers edit">
+  <h2>Update Retailer</h2>
+
+  <%= form_for(:retailer, :url => {:action => 'update', :id => @retailer.id}) do |f| %>
+
+    <%= render(:partial => "form", :locals => {:f => f}) %>
+
+    <div class="form-buttons">
+      <%= submit_tag("Update Retailer") %>
+    </div>
+
+  <% end %>
+</div>

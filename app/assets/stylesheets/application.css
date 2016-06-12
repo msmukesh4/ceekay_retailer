@@ -11,3 +11,42 @@
  *= require_self
  *= require_tree .
  */
+
+html { height: 100%; width: 100%; }
+body { width: 100%; min-width: 980px; height: 100%; margin: 0; padding: 0;
+  font: 14px Verdana,Lucida,Arial,Helvetica,sans-serif; color: #332318; }
+p, td, ul, ol, li, dl, dt, dd {
+  font-family: Verdana,Lucida,Arial,Helvetica,sans-serif; }
+img { border: none; }
+table { border-collapse: collapse; }
+table tr th, table tr td { vertical-align: top; text-align: center;
+  padding: 5px; }
+#content { padding: 20px; }
+#navigation a:hover { background: #F2DC87; }
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* large action buttons */
+a.action { float: right; padding: 1px 1px; margin: 0 0 2em 2em;
+  background: #94B26F; color: #4C2516;  border: 1px solid #4C2516;
+  text-decoration: none; font-size: 1.2em; text-align: center; }
+a.action:hover { background: #B6D491; }
+
+/* small action buttons */
+.actions { width: 150px; }
+.actions a.action { float: left; min-width: 3.5em;
+  padding: 1px 2px; margin: 2px 5px; font-size: 1em; }
+
+/* CRUD */
+.notice { height: 1.25em; padding: 0.5em; text-align: center;
+  background: #B6D491; color: #4C2516; }
+.back-link { font-size: 0.8em; margin-bottom: 1em; background:  }
+.form-buttons { text-align: center; margin: 1.2em 0; }
+.index table { clear: both; width: 100%; }
+
+/* zebra striping for table rows */
+.odd { background: #6DC2EC; }
+.odd:hover{ background: #179EE2 }
+.even { background: #F0C7CE; }
+.even:hover { background: #E63B57; }
+.center { text-align: center; }

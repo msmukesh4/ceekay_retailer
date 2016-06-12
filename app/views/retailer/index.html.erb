@@ -1,0 +1,43 @@
+<% if !flash[:notice].blank? %>
+    <div class="notice">
+        <%= flash[:notice] %>
+    </div>
+<% end %>
+
+<h1>Retailer/index</h1>
+
+<%= link_to("Add New Retailer", {:action => 'new'}, :class => 'action new') %>
+
+<div id="index">
+	<table class="listing" summary="Retailer list">
+	    <tr class="header">
+	      	<th>No.</th>
+	      	<th>Retailer code</th>
+	      	<th>Retailer name</th>
+	      	<th>DSE code</th>
+	      	<th>Route</th>
+	      	<th>Latitude</th>
+	      	<th>Longitude</th>
+	      	<th>Address</th>
+	      	<th>Actions</th>
+	    </tr>
+	    <% pos=1 %>
+	    <% @retailers.each do |retailer| %>
+		    <tr class="<%= cycle('odd', 'even') %>">
+		    	<td><%= pos %></td>
+		      	<td><%= retailer.retailer_code %></td>
+		      	<td><%= retailer.retailer_name %></td>
+				<td><%= retailer.dse_code %></td>
+				<td><%= retailer.route_no %></td>
+		      	<td><%= retailer.latitude %></td>
+		      	<td><%= retailer.longitude %></td>
+		      	<td><%= retailer.address %></td>
+		      	<td class="actions">
+		        	<%= link_to("Edit", {:action => 'edit', :id => retailer.id}, :class => 'action edit') %>
+		        	<%= link_to("Delete", {:action => 'delete', :id => retailer.id}, :class => 'action delete') %>
+		      	</td>
+		      	<% pos = pos+1%>
+		    </tr>
+	    <% end %>
+  	</table>
+</div>
