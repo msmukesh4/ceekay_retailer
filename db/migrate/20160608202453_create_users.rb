@@ -3,7 +3,7 @@ class CreateUsers < ActiveRecord::Migration
     create_table :users do |t|
 
       t.string :email
-      t.string :password_digest
+      t.string :password
       t.boolean :is_first_logged_in, :default => false
     	t.boolean :is_admin, :default => false
     	t.string :dse_code
@@ -12,7 +12,5 @@ class CreateUsers < ActiveRecord::Migration
     	t.string :contact_number
       t.timestamps
     end
-
-    add_index(:users, :email)
   end
 end

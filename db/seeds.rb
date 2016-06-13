@@ -5,3 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+
+User.delete_all
+User.create :email => 'super@user.com', :password =>'1x1rWngoyz1LBmtM4qJvCA==\n', :access_token => '12345678900987654321',:is_first_logged_in => true, :is_admin => true ,:created_at => DateTime.now.utc, :updated_at => DateTime.now.utc

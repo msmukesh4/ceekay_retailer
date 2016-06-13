@@ -1,8 +1,9 @@
 class RetailerController < ApplicationController
 
-	# before_action :confirm_logged_in
+	before_action :confirm_logged_in
 
 	def index
+		puts "session user id : #{session[:user_id]}"
 		@retailers = Retailer.all
 	end
 

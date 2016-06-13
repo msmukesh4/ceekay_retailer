@@ -1,9 +1,31 @@
 CeekayRetailer::Application.routes.draw do
-  use_doorkeeper
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-    match ':controller(/:action(/:id))', :via => [:get, :post]
+    
+    root to: 'user#login'
+
+    ### Start API routes ###
+
+   namespace :v1, defaults: {format: 'json'} do
+      
+      namespace :account do
+         resource :session do
+            get 'demo'
+            post 'login'
+         end
+
+         resource :profile do
+            post 'update_password'
+            post 'edit_profile'
+         end
+      end
+
+   end
+
+  ### End API routes ###
+
+  match ':controller(/:action(/:id))', :via => [:get, :post]
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'

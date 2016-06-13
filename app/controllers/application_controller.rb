@@ -3,14 +3,10 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :gen_uuid, :encrypt, :decrypt, :current_user
+  helper_method :gen_uuid, :encrypt, :decrypt
 
   ALGORITHM = 'AES-128-ECB'
   KEY = "abckey123ccaabb1" # must me >= 16
-
-  	def current_user
-  		@current_user ||= User.find(session[:user_id]) if session[:user_id]
-	end
 
   # this will ecript the data based on the key and Algorithm type
   def encrypt(data)

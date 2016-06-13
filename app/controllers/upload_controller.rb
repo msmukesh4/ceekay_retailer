@@ -1,7 +1,7 @@
 require 'rubyXL'
 class UploadController < ApplicationController
 
-	# before_action :confirm_logged_in
+	before_action :confirm_logged_in
 
 	def export_xls_to_db(path)
 		row_number = -1
@@ -26,6 +26,7 @@ class UploadController < ApplicationController
 			    	u.dse_code = dse
 			    	u.email = dse
 			    	u.password = encrypt(dse)
+			    	u.access_token = SecureRandom.hex(10)
 			    	if u.save
 			    		@user_count += 1
 			    	else

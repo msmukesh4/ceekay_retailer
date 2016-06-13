@@ -32,6 +32,16 @@ a.action { float: right; padding: 1px 1px; margin: 0 0 2em 2em;
   text-decoration: none; font-size: 1.2em; text-align: center; }
 a.action:hover { background: #B6D491; }
 
+a.danger { float: right; padding: 3px 10px; margin: 0 0 2em 2em;
+  background: #DB1616; color: #000000;
+  text-decoration: none; font-size: 1.2em; text-align: center; }
+a.danger:hover { background: #DB1616; }
+
+a.normal { float: right; padding: 3px 10px; margin: 0 0 2em 2em;
+  background: #6DC2EC; color: #000000;
+  text-decoration: none; font-size: 1.2em; text-align: center; }
+a.normal:hover { background: #179EE2; }
+
 /* small action buttons */
 .actions { width: 150px; }
 .actions a.action { float: left; min-width: 3.5em;

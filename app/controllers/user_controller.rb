@@ -1,7 +1,7 @@
 class UserController < ApplicationController
 
-	layout "login_layout",only: [:login]
-	# before_action :confirm_logged_in, :except	=> [:login, :validate_user, :index, :logout]
+	layout "login_layout"
+	before_action :confirm_logged_in, :except	=> [:login, :validate_user, :index, :logout]
 
 	def login
    		@user = User.new
@@ -11,8 +11,8 @@ class UserController < ApplicationController
 	# function to validate user
    	def validate_user
    		begin
+   			authorized_user = nil
    			@user = User.new(user_sign_in_params)
-	      	# @user = User.find(params[:id])
 	        puts "user : #{@user.inspect}"
 	        if !@user.email.blank?
 	    
@@ -22,64 +22,69 @@ class UserController < ApplicationController
 		        if u.blank?
 		        	puts "user is blank"
 		            flash[:notice] = "user with email #{@user.email} doesnot exist"
-		            render('login')
+		            # render('login')
 		        else
 		        	puts "user is not blank"
 		            d_pass = decrypt(u.password)
-		            puts "#{d_pass}"
+		            puts "password : #{d_pass}"
 		            if d_pass == @user.password
 		            	puts "password matched"
-		               	if u.is_first_logged_in
-		               		puts "user is logged in : #{u.is_admin}"
-		                  	if u.is_admin
-		                  		puts "user is admin"
-		                     	@user = User.find(u.id)
-		                    	authorized_user = @user
+		                if u.is_admin
+		                	puts "user is admin : #{u.is_admin}"
+		        			if u.is_first_logged_in
+			                  	puts "user has already logged in !!"
+			                   	puts u.inspect
+			                    authorized_user = u.id
+
 		                	else
-		                		puts "user is not admin"
-		                    	flash[:notice] = "User cannot log in !! only admin can"
-		                	end
-		            	else
-		            		puts "user is not logged in #{u.id}"
-		            		flash[:notice] = "You are Successfully Logged in please Enter New Email id and password to continue..."
-		            		redirect_to(:action => 'edit', :id => u.id)
-		           			# redirection for change your password 
-		           			# if user changes the password then make is_first_logged_in = true
+		                		# redirection for change your password 
+		           				# if user changes the password then make is_first_logged_in = true
+		           				authorized_user = u.id
+
+		                		puts "user is not logged in #{u.id}"
+		            			flash[:notice] = "You are Successfully Logged in please Enter New Email id and password to continue..."
+		            			# redirect_to(:action => 'edit', :id => u.id)
+		               		end
+		           		else
+		            		puts "user is not admin"
+		                   	flash[:notice] = "User cannot log in !! only admin can"
+		                   	# render('login')
 		        		end
 		    		else
 		          		flash[:notice] = "Incorrect password"
 		          		flash[:notice] = "please input password !!" if @user.password.blank?
 		        	end
 		     	end
-		      	if authorized_user and u.is_first_logged_in
-		      		puts "auth user"
-		      		# TODO: mark user as logged in
-		      		session[:user_id] = authorized_user.id
-		      		session[:email] = authorized_user.email
-			      	flash[:notice] = "You are now logged in."
-			      	redirect_to(:controller => 'retailer', :action => 'index')
-		      	# elsif !u.is_first_logged_in and authorized_user
-		      	# 	session[:user_id] = authorized_user.id
-		      	# 	session[:email] = authorized_user.email
-			      # 	flash[:notice] = "You are now logged in."
-		      	# 	render('edit')
-		      	else
-		      		puts "No auth user"
-		      		render('login')
-		      	end
-		      	# redirect_to(:controller => 'retailer', :action => 'index')
+
+		     	if authorized_user
+		     		puts "auth user"
+		     		usr = User.find(authorized_user)
+		     		# TODO: mark user as logged in
+		     		puts "#{usr.id} || #{usr.inspect}"
+		      		session[:user_id] = usr.id
+		      		session[:email] = usr.email
+			      	redirect_to(:action => 'edit', :id => authorized_user)
+			      	# render()
+		     	else
+		     		puts "No auth user"
+		     		render('login')
+		     	end
 		    else
 		    	flash[:notice] = "please input email id !!"
 		    	render('login')
 		    end
    		rescue Exception => e
    			puts "Exception : #{e}"
-   			# redirect_to(:action => 'login')
+   			redirect_to(:action => 'login')
    		end
    	end
 
    	def edit
    		@user = User.find(params[:id])
+   		if @user.is_first_logged_in
+   			flash[:notice] = "you have already changed your password !!"
+   			redirect_to(:controller => 'retailer', :action => 'index')
+   		end
 		puts @user.inspect
    	end
 
