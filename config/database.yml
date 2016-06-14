@@ -56,7 +56,9 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: ceekay_retailer_production
+  host: ec2-54-235-125-38.compute-1.amazonaws.com
+  database: d1g6nbg7d9isc2
   pool: 5
-  username: ceekay_retailer
-  password:
+  port: 5432
+  username: lsstvsowupvxwn
+  password: eZKJalNjURXAd-Htz8leXg5xJp
