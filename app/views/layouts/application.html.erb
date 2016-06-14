@@ -8,11 +8,17 @@
 <body>
 <div id="content">
 	<div id="content">
+		
 		<%= link_to("Logout", {:controller => 'user', :action => 'logout'}, :class => 'danger') %>
 		<%= link_to("Upload", {:controller => 'upload', :action => 'index'}, :class => 'normal') %>
-
+		
 	</div>
 	<%= yield %>
+
+	<div id="footer">
+
+	</div>
+
 </div>
 
 </body>

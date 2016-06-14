@@ -19,6 +19,19 @@ CeekayRetailer::Application.routes.draw do
             post 'update_password'
             post 'edit_profile'
          end
+
+         resource :dse do
+            get 'get_dse_routes'
+         end
+
+         resource :retailer do
+            get 'get_retailer_code_list'
+            get 'get_retailer_details'
+            post 'update_retailer_address'
+            get 'get_my_retailers'
+            get 'get_my_retailers_updated_today'
+         end
+
       end
 
    end
