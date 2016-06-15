@@ -60,10 +60,10 @@ class UploadController < ApplicationController
 			ext = name.split(".").last
 		    puts "name : #{name}, ext : #{ext}"
 		    if ext == "xlsx" or ext == "xls"
-		    	directory = "public/uploads"
+		    	directory = "#{Rails.public_path}/uploads"
 			    path = File.join(directory, name)
 			    v = File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
-			    puts "uploading... : #{v} || path : #{path}"
+			    puts "uploading... : #{v} || path : #{path} || directory : #{directory}"
 			    if Upload.last.blank?
 				    rows = export_xls_to_db(path)
 				    upload = Upload.new
