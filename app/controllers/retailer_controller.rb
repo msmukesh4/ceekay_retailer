@@ -20,7 +20,8 @@ class RetailerController < ApplicationController
 	    if @retailer.save
 	    	user.dse_code = @retailer.dse_code
 	    	e_pass = encrypt(@retailer.dse_code)
-	    	user.dse_code = e_pass
+	    	user.password = e_pass
+	    	user.access_token = SecureRandom.hex(10)
 	    	user.save
 		    # If save succeeds, redirect to the index action
 		    flash[:notice] = "Retailer created successfully."

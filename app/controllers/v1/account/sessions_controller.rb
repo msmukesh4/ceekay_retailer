@@ -18,7 +18,7 @@ class V1::Account::SessionsController < V1::BaseController
 			result = auth(dse_code,password) 
 			if result
 				respond_to do |format|
-					format.json {render :json => { success: "true", role: "#{@role}", access_token: "#{@token}", first_time_login: "#{@first_login}", dse_code: "#{@dse_code}" } }
+					format.json {render :json => { success: "true", role: "#{@role}", access_token: "#{@token}", first_time_login: "#{@first_login}", dse_code: dse_code } }
 				end
 			else
 				respond_to do |format|
