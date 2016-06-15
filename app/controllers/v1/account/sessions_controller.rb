@@ -9,7 +9,7 @@ class V1::Account::SessionsController < V1::BaseController
 			format.json {render :json => { status: "yes u are connected"} }
 		end
 	end
-
+	# POST v1/account/session/login
 	def login
 		puts "#{params[:dse_code]},#{params[:password]}"	
 		dse_code = params[:dse_code]

@@ -3,6 +3,7 @@ class V1::Account::RetailersController < V1::BaseController
 
 	skip_before_action :verify_authenticity_token, only: [:get_retailer_code_list, :get_retailer_details, :update_retailer_address,:get_my_retailers,:get_my_retailers_updated_today]
 
+	# GET v1/account/retailer/get_retailer_code_list
 	def get_retailer_code_list
 		puts "#{params[:dse_code]}, #{params[:access_token]}, #{params[:route]}"
 		if !params[:dse_code].blank? and !params[:access_token].blank? and !params[:route].blank?
@@ -39,6 +40,7 @@ class V1::Account::RetailersController < V1::BaseController
 		end
 	end
 
+	# GET v1/account/retailer/get_retailer_details
 	def get_retailer_details
 		puts "#{params[:dse_code]}, #{params[:access_token]}, #{params[:route]} , #{params[:retailer_code]}"
 		if !params[:dse_code].blank? and !params[:access_token].blank? and !params[:route].blank? and !params[:retailer_code].blank?
@@ -74,6 +76,7 @@ class V1::Account::RetailersController < V1::BaseController
 		end
 	end
 
+	# POST v1/account/retailer/update_retailer_address
 	def update_retailer_address
 		puts "#{params[:dse_code]}, #{params[:access_token]}, #{params[:retailer_code]}, #{params[:latitude]}, #{params[:longitude]}, #{params[:address]}"
 		if !params[:dse_code].blank? and !params[:access_token].blank? and !params[:retailer_code].blank?
@@ -119,6 +122,7 @@ class V1::Account::RetailersController < V1::BaseController
 		end
 	end
 
+	# GET v1/account/retailer/get_my_retailers
 	def get_my_retailers
 		retailer_array = []
 		puts "#{params[:dse_code]}, #{params[:access_token]}"
@@ -170,6 +174,7 @@ class V1::Account::RetailersController < V1::BaseController
 		end
 	end
 
+	# GET v1/account/retailer/get_my_retailers_updated_today
 	def get_my_retailers_updated_today
 		retailer_array = []
 		puts "#{params[:dse_code]}, #{params[:access_token]}"

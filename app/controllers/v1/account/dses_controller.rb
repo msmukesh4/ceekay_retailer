@@ -2,6 +2,8 @@ require 'json'
 class V1::Account::DsesController < V1::BaseController
 
 	skip_before_action :verify_authenticity_token, only: [:get_dse_routes]
+	
+	# GET v1/account/dse/get_dse_routes
 
 	def get_dse_routes
 		puts "#{params[:dse_code]}, #{params[:access_token]}"

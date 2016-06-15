@@ -14,8 +14,14 @@ class RetailerController < ApplicationController
   	def create
 	    # Instantiate a new object using form parameters
 	    @retailer = Retailer.new(retailer_params)
+	    user = User.new
+
 	    # Save the object
 	    if @retailer.save
+	    	user.dse_code = @retailer.dse_code
+	    	e_pass = encrypt(@retailer.dse_code)
+	    	user.dse_code = e_pass
+	    	user.save
 		    # If save succeeds, redirect to the index action
 		    flash[:notice] = "Retailer created successfully."
 		    redirect_to(:action => 'index')
@@ -33,11 +39,17 @@ class RetailerController < ApplicationController
 	def update
 	   	# Find an existing object using form parameters
 	    @retailer = Retailer.find(params[:id])
+	    puts @retailer.inspect
+	    user = User.where(:dse_code => @retailer.dse_code).first
+	    puts "user from unupdated retailer : "+user.inspect
 	    # Update the object
 	    if @retailer.update_attributes(retailer_params)
-	      # If update succeeds, redirect to the index action
-	      flash[:notice] = "retailer #{@retailer.id} updated successfully."
-	      redirect_to(:action => 'index')
+	    	user.dse_code = @retailer.dse_code
+	    	user.save
+	    	puts "after update "+@retailer.inspect
+	      	# If update succeeds, redirect to the index action
+	      	flash[:notice] = "retailer #{@retailer.id} updated successfully."
+	      	redirect_to(:action => 'index')
 	    else
 	      # If update fails, redisplay the form so user can fix problems
 	      flash[:notice] = "Invalid fields"

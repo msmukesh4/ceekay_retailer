@@ -9,3 +9,4 @@
 
 User.delete_all
 User.create :email => 'super@user.com', :password =>'1x1rWngoyz1LBmtM4qJvCA==\n', :access_token => '12345678900987654321',:is_first_logged_in => true, :is_admin => true ,:created_at => DateTime.now.utc, :updated_at => DateTime.now.utc
+User.create :email => 'admin@user.com', :password =>'1x1rWngoyz1LBmtM4qJvCA==\n', :access_token => '12345678900987654321',:is_first_logged_in => false, :is_admin => true ,:created_at => DateTime.now.utc, :updated_at => DateTime.now.utc
