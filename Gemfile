@@ -7,7 +7,7 @@ gem 'rails', '4.0.0'
 gem 'pg'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+# gem 'sass-rails', '~> 4.0.0'
 
 gem 'rubyXL'
 
@@ -37,6 +37,13 @@ end
 group :production do
 	gem 'rails_12factor'
 end
+
+group :assets do
+  gem 'sass-rails', "  ~> 4.0.0"
+  gem 'coffee-rails', "~> 4.0.0"
+  gem 'uglifier', '>=1.0.3'
+end
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

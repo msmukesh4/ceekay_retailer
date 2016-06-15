@@ -79,10 +79,10 @@ GEM
       activesupport (= 4.0.0)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rake (11.1.2)
+    rake (11.2.2)
     rdoc (4.2.2)
       json (~> 1.4)
-    rubyXL (3.3.19)
+    rubyXL (3.3.20)
       nokogiri (>= 1.4.4)
       rubyzip (>= 1.1.6)
     rubyzip (1.2.0)
@@ -112,12 +112,15 @@ GEM
       polyglot (>= 0.3.1)
     turbolinks (2.5.3)
       coffee-rails
-    tzinfo (0.3.49)
+    tzinfo (0.3.50)
+    uglifier (3.0.0)
+      execjs (>= 0.3.0, < 3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  coffee-rails (~> 4.0.0)
   jbuilder (~> 1.2)
   jquery-rails
   pg
@@ -127,6 +130,7 @@ DEPENDENCIES
   sass-rails (~> 4.0.0)
   sdoc
   turbolinks
+  uglifier (>= 1.0.3)
 
 BUNDLED WITH
    1.12.5
