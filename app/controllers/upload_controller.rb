@@ -6,7 +6,7 @@ class UploadController < ApplicationController
 	def export_xls_to_db(path)
 		row_number = -1
 		@user_count = 0
-		workbook = RubyXL::Parser.parse("/home/mukesh/Desktop/ck_retailers.xlsx")
+		workbook = RubyXL::Parser.parse("#{Rails.public_path}/uploads/ck_retailers.xlsx")
 		worksheet = workbook[0]
 		worksheet.each { |row|
 		  	
