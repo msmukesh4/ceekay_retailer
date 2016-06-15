@@ -11,6 +11,7 @@
 		
 		<%= link_to("Logout", {:controller => 'user', :action => 'logout'}, :class => 'danger') %>
 		<%= link_to("Upload", {:controller => 'upload', :action => 'index'}, :class => 'normal') %>
+		<%= link_to("See Retailers on Map", {:controller => 'retailer', :action => 'locations_on_map'}, :class => 'normal') %>
 		
 	</div>
 	<%= yield %>

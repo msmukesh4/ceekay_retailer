@@ -68,6 +68,12 @@ class RetailerController < ApplicationController
 	    redirect_to(:action => 'index')
 	end
 
+	def locations_on_map
+
+		@retailers = Retailer.all
+		
+	end
+
 	def retailer_params
       # same as using "params[:retailer]", except that it:
       # - raises an error if :retailer is not present
