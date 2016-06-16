@@ -12,7 +12,8 @@ class V1::Account::DsesController < V1::BaseController
 			if !usr.blank?
 				token = usr.access_token
 				if token == params[:access_token]
-					retailers = Retailer.where(:dse_code => params[:dse_code])
+					retailers = Retailer.where(:dse_code => params[:dse_code]).select(:route_no).uniq
+
 					if !retailers.blank?
 						routes = retailers.map(&:route_no).join(',')
 						respond_to do |format|
