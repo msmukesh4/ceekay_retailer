@@ -71,6 +71,7 @@ class RetailerController < ApplicationController
 	def locations_on_map
 
 		@retailers = Retailer.all
+		puts "#{@retailers.inspect}"
 		
 	end
 
