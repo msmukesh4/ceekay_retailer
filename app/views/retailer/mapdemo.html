@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #map {
+        width: 700px;
+        height: 600px;
+        background-color: #CCC;
+
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map">
+      <script>
+        function initMap() {
+          var mapDiv = document.getElementById('map');
+          var map = new google.maps.Map(mapDiv,{
+            center: {lat: 22.577006, lng: 88.454545},
+            zoom: 10
+          });
+        }
+      </script>
+      
+      <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
+        async defer></script>
+    </div>
+
+    <!-- <button onclick="getLocation()">Try It</button> -->
+
+      <!-- <p id="demo"></p> -->
+      <!-- <div id="fetch">
+      // <script>
+      //   var x = document.getElementById("demo");
+
+      //   function getLocation() {
+      //       if (navigator.geolocation) {
+      //           navigator.geolocation.getCurrentPosition(showPosition);
+      //       } else { 
+      //           x.innerHTML = "Geolocation is not supported by this browser.";
+      //       }
+      //   }
+
+      //   function initMap(position) {
+      //     var mapDiv = document.getElementById('map');
+      //     var map = new google.maps.Map(mapDiv,{
+      //       center: {lat: 22.577006, lng: 88.454545},
+      //       zoom: 10
+      //     });
+      //   }
+
+      //   function showPosition(position) {
+      //       x.innerHTML = "Latitude: " + position.coords.latitude + 
+      //       "<br>Longitude: " + position.coords.longitude;
+      //   }
+      // </script>
+      <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
+        async defer></script>
+      </div> -->
+
+
+  </body>
+</html>
