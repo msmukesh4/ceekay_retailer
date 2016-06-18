@@ -1,7 +1,7 @@
 require 'json'
 class V1::Account::RetailersController < V1::BaseController
 
-	skip_before_action :verify_authenticity_token, only: [:get_retailer_code_list, :get_retailer_details, :update_retailer_address,:get_my_retailers,:get_my_retailers_updated_today]
+	skip_before_action :verify_authenticity_token, only: [:get_retailer_code_list, :get_retailer_details, :update_retailer_address,:get_my_retailers,:get_my_retailers_updated_today, :get_my_pending_retailers]
 
 	# GET v1/account/retailer/get_retailer_code_list
 	def get_retailer_code_list
@@ -52,7 +52,7 @@ class V1::Account::RetailersController < V1::BaseController
 					retailer = Retailer.where(:dse_code => params[:dse_code], :route_no => params[:route], :retailer_code => params[:retailer_code] ).first
 					if !retailer.blank?
 						respond_to do |format|
-							format.json {render :json => { success: "true", retailer_code: retailer.retailer_code, :retailer_name => retailer.retailer_name, :dse_code => retailer.dse_code, :route => retailer.route_no, :address => retailer.address, :latitude => retailer.latitude, :longitude => retailer.longitude} }
+							format.json {render :json => { success: "true", retailer_code: retailer.retailer_code, :retailer_name => retailer.retailer_name, :dse_code => retailer.dse_code, :route => retailer.route_no, :address => retailer.address, :latitude => retailer.latitude, :longitude => retailer.longitude, :contact_number => retailer.contact_number, :pan => retailer.pan, :tin => retailer.tin, :active => retailer.is_actice} }
 						end
 					else
 						respond_to do |format|
@@ -143,7 +143,12 @@ class V1::Account::RetailersController < V1::BaseController
 								:route => rtlr.route_no,
 								:address => rtlr.address,
 								:latitude => rtlr.latitude,
-								:longitude => rtlr.longitude
+								:longitude => rtlr.longitude,
+								:contact_number => rtlr.contact_number,
+								:pan => rtlr.pan,
+								:tin => rtlr.tin,
+								:active => rtlr.is_actice
+
 							}
 							retailer_array << retailer_details
 						end
@@ -194,7 +199,66 @@ class V1::Account::RetailersController < V1::BaseController
 								:route => rtlr.route_no,
 								:address => rtlr.address,
 								:latitude => rtlr.latitude,
-								:longitude => rtlr.longitude
+								:longitude => rtlr.longitude,
+								:contact_number => rtlr.contact_number,
+								:pan => rtlr.pan,
+								:tin => rtlr.tin,
+								:active => rtlr.is_actice
+							}
+							retailer_array << retailer_details
+						end
+						json_retailer_details = JSON[retailer_array]
+
+						respond_to do |format|
+							format.json {render :json => { success: "true", retailers: JSON[json_retailer_details]} }
+						end
+					else
+						respond_to do |format|
+							format.json {render :json => { success: "false", reason: "no retailers found with the provided dse code"} }
+						end
+					end
+				else
+					respond_to do |format|
+						format.json {render :json => { success: "false", reason: "invalid access token"} }
+					end
+				end
+			else
+				respond_to do |format|
+						format.json {render :json => { success: "false", reason: "user with provided dse code doesnot exist"} }
+				end
+			end
+		else
+			respond_to do |format|
+				format.json {render :json => { success: "false", reason: "provide both dse_code and access_token"} }
+			end
+		end
+	end
+
+
+	def get_my_pending_retailers
+		retailer_array = []
+		puts "#{params[:dse_code]}, #{params[:access_token]}"
+		if !params[:dse_code].blank? and !params[:access_token].blank?
+				
+			usr = User.where(:dse_code => params[:dse_code]).first
+			if !usr.blank?
+				token = usr.access_token
+				if token == params[:access_token]
+					retailers = Retailer.where(:dse_code => params[:dse_code], :latitude => 0, :longitude => 0)
+					if !retailers.blank?
+						retailers.each do |rtlr|
+							retailer_details = {
+								:retailer_code => rtlr.retailer_code,
+								:retailer_name => rtlr.retailer_name,
+								:dse_code => rtlr.dse_code,
+								:route => rtlr.route_no,
+								:address => rtlr.address,
+								:latitude => rtlr.latitude,
+								:longitude => rtlr.longitude,
+								:contact_number => rtlr.contact_number,
+								:pan => rtlr.pan,
+								:tin => rtlr.tin,
+								:active => rtlr.is_actice
 							}
 							retailer_array << retailer_details
 						end

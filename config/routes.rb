@@ -30,6 +30,7 @@ CeekayRetailer::Application.routes.draw do
             post 'update_retailer_address'
             get 'get_my_retailers'
             get 'get_my_retailers_updated_today'
+            get 'get_my_pending_retailers'
          end
 
       end

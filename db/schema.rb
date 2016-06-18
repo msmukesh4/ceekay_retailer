@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160613182455) do
+ActiveRecord::Schema.define(version: 20160618102049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "adminpack"
 
   create_table "retailers", force: true do |t|
     t.string   "retailer_code"
@@ -22,10 +23,14 @@ ActiveRecord::Schema.define(version: 20160613182455) do
     t.string   "dse_code"
     t.string   "route_no"
     t.string   "address"
-    t.decimal  "latitude",      precision: 9, scale: 6, default: 0.0
-    t.decimal  "longitude",     precision: 9, scale: 6, default: 0.0
+    t.decimal  "latitude",                  precision: 9, scale: 6, default: 0.0
+    t.decimal  "longitude",                 precision: 9, scale: 6, default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "contact_number", limit: 15
+    t.boolean  "is_active",                                         default: true
+    t.string   "pan",            limit: 15
+    t.string   "tin",            limit: 15
   end
 
   create_table "uploads", force: true do |t|
@@ -47,6 +52,7 @@ ActiveRecord::Schema.define(version: 20160613182455) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "access_token",       limit: 20
+    t.boolean  "is_active",                     default: true
   end
 
 end

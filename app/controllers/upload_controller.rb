@@ -8,16 +8,34 @@ class UploadController < ApplicationController
 		@user_count = 0
 		puts "path : #{Rails.public_path}/uploads/ck_retailers.xlsx"
 		workbook = RubyXL::Parser.parse("#{Rails.public_path}/uploads/ck_retailers.xlsx")
+		Retailer.update_all(:is_active => false)
+
 		worksheet = workbook[0]
+
+		# parsing the rows of excel sheet
 		worksheet.each { |row|
-		  	
+		  
 		  	if row_number >= 0
+
 		  		dse = row.cells[2] && row.cells[2].value
-		  		retailer = Retailer.new
-			    retailer.retailer_code = row.cells[0] && row.cells[0].value
-			    retailer.retailer_name = row.cells[1] && row.cells[1].value
+		  		r_code = row.cells[0] && row.cells[0].value
+		  		r_name = row.cells[1] && row.cells[1].value
+		  		r_route_no = row.cells[3] && row.cells[3].value
+
+		  		puts "Details :  dse : #{dse} | rcode = #{r_code} | r_name = #{r_name} | r_route_no = #{r_route_no}"
+
+		  		retailer = Retailer.where(:retailer_code => r_code).first
+
+		  		# retailer not found
+		  		if retailer.blank?
+		  			retailer = Retailer.new
+		  		end
+			   
+			    retailer.retailer_code = r_code
+			    retailer.retailer_name = r_name
 			    retailer.dse_code = dse
-			    retailer.route_no = row.cells[3] && row.cells[3].value
+			    retailer.route_no = r_route_no
+			    retailer.is_active = true
 
 			    usr = User.where(:dse_code => dse).first
 			    puts usr.inspect
@@ -48,10 +66,10 @@ class UploadController < ApplicationController
 	end
 
 	def index
-		if !Upload.last.blank?
-			flash[:notice] = "one excel file already uploaded"
-			redirect_to(:controller => 'retailer', :action => 'index')
-		end
+		# if !Upload.last.blank?
+		# 	flash[:notice] = "one excel file already uploaded"
+		# 	redirect_to(:controller => 'retailer', :action => 'index')
+		# end
 	end
 
 	def create
@@ -64,7 +82,7 @@ class UploadController < ApplicationController
 			    path = File.join(directory, name)
 			    v = File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
 			    puts "uploading... : #{v} || path : #{path} || directory : #{directory}"
-			    if Upload.last.blank?
+			    # if Upload.last.blank?
 				    rows = export_xls_to_db(path)
 				    upload = Upload.new
 				    upload.file_name = name
@@ -72,10 +90,10 @@ class UploadController < ApplicationController
 				    upload.save
 				    flash[:notice] = "File uploaded and #{rows} retailes and #{@user_count} users created"
 				    redirect_to(:controller => 'retailer', :action => 'index')
-				else
-					flash[:notice] = "one excel file already uploaded"
-					redirect_to(:controller => 'retailer', :action => 'index')
-				end
+				# else
+					# flash[:notice] = "one excel file already uploaded"
+					# redirect_to(:controller => 'retailer', :action => 'index')
+				# end
 			else
 				puts "invalid file"
 				flash[:notice] = "Select a valid excel file !!"
