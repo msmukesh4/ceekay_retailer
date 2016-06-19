@@ -50,7 +50,7 @@ class RetailerController < ApplicationController
 	def update
 	   	# Find an existing object using form parameters
 	    @retailer = Retailer.find(params[:id])
-	    puts @retailer.inspect
+	    puts "before update: "+@retailer.inspect
 	    
 	    # Update the object
 	    if @retailer.update_attributes(retailer_params)
@@ -100,6 +100,6 @@ class RetailerController < ApplicationController
       # same as using "params[:retailer]", except that it:
       # - raises an error if :retailer is not present
       # - allows listed attributes to be mass-assigned
-      params.require(:retailer).permit(:retailer_code, :retailer_name, :dse_code, :route_no)
+      params.require(:retailer).permit(:retailer_code, :retailer_name, :dse_code, :route_no, :contact_number, :tin, :pan)
     end
 end
