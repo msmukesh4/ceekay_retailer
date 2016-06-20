@@ -5,15 +5,12 @@ class ApplicationController < ActionController::Base
 
   helper_method :gen_uuid, :encrypt, :decrypt
 
-  ALGORITHM = 'AES-128-ECB'
-  KEY = "abckey123ccaabb1" # must me >= 16
-
   # this will ecript the data based on the key and Algorithm type
   def encrypt(data)
     
-    cipher = OpenSSL::Cipher.new(ALGORITHM)
+    cipher = OpenSSL::Cipher.new(ENV['ALGORITHM'])
     cipher.encrypt()
-    cipher.key = KEY
+    cipher.key = ENV['KEY']
     crypt = cipher.update(data) + cipher.final()
     encrypted_data = (Base64.encode64(crypt))
     
@@ -23,9 +20,9 @@ class ApplicationController < ActionController::Base
     # this will ecript the data based on the key and Algorithm type
   def decrypt(data)
 
-    cipher = OpenSSL::Cipher.new(ALGORITHM)
+    cipher = OpenSSL::Cipher.new(ENV['ALGORITHM'])
     cipher.decrypt()
-    cipher.key = KEY
+    cipher.key = ENV['KEY']
     tempkey = Base64.decode64(data)
     decrypted_data = cipher.update(tempkey)
     decrypted_data << cipher.final()
