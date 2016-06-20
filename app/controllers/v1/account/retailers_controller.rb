@@ -88,9 +88,13 @@ class V1::Account::RetailersController < V1::BaseController
 					retailer = Retailer.where(:dse_code => params[:dse_code], :retailer_code => params[:retailer_code]).first
 
 					if !retailer.blank?
-						retailer.address = params[:address] if !params[:address].blank?
-						retailer.latitude = params[:latitude] if !params[:latitude].blank?
-						retailer.longitude = params[:longitude] if !params[:longitude].blank?
+						retailer.address = params[:address] 
+						retailer.latitude = params[:latitude] 
+						retailer.longitude = params[:longitude]
+						retailer.contact_number = params[:contact_number]
+						retailer.pan = params[:pan]
+						retailer.tin = params[:tin]
+
 						if retailer.save
 							respond_to do |format|
 								format.json {render :json => { success: "true", reason: "retailer updated successfully" } }
