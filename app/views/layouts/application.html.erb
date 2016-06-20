@@ -10,8 +10,8 @@
 	<div id="content">
       	
 		<%= link_to("Logout", {:controller => 'user', :action => 'logout'}, :class => 'danger') %>
-		<%= link_to("Upload", {:controller => 'upload', :action => 'index'}, :class => 'normal') %>
-		<%= link_to("See Retailers on Map", {:controller => 'retailer', :action => 'mapdemo'}, :class => 'normal') %>
+		<%= link_to("Upload", {:controller => 'upload', :action => 'index'}, :class => 'danger') %>
+		<%= link_to("See Retailers on Map", {:controller => 'retailer', :action => 'map'}, :class => 'normal') %>
 		
 	</div>
 	<%= yield %>

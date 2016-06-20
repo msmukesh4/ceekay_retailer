@@ -3,6 +3,7 @@ class RetailerController < ApplicationController
 	before_action :confirm_logged_in
 
 	layout "print_layout",only: [:index, :map]
+	# layout "demo", only:[:test]
 
 	def index
 		puts "session user id : #{session[:user_id]}"
@@ -106,6 +107,10 @@ class RetailerController < ApplicationController
 	def map
 		puts "dse_code : #{params[:dse_code]} || route : #{params[:route]}"
 		@retailers = Retailer.search(params[:dse_code], params[:route], params[:retailer_name], params[:retailer_code])
+	end
+
+	def test
+		
 	end
 
 	def retailer_params
