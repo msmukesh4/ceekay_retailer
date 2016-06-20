@@ -94,11 +94,13 @@ class RetailerController < ApplicationController
 	end
 
 	def destroy
+		
 	    retailer = Retailer.find(params[:id])
 	    retailer.is_active = false
 	    retailer.save
 	    flash[:notice] = "retailer '#{retailer.retailer_name}' destroyed successfully."
 	    redirect_to(:action => 'index')
+
 	end
 
 	def map
