@@ -105,7 +105,7 @@ class RetailerController < ApplicationController
 
 	def map
 		puts "dse_code : #{params[:dse_code]} || route : #{params[:route]}"
-		@retailers = Retailer.search(params[:dse_code], params[:route], params[:retailer_name])
+		@retailers = Retailer.search(params[:dse_code], params[:route], params[:retailer_name], params[:retailer_code])
 	end
 
 	def retailer_params
