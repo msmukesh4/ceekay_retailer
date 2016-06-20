@@ -15,7 +15,7 @@ class V1::Account::DsesController < V1::BaseController
 					retailers = Retailer.where(:dse_code => params[:dse_code]).select(:route_no).uniq
 
 					if !retailers.blank?
-						routes = retailers.map(&:route_no).join(',')
+						routes = retailers.map(&:route_no).sort_by(&:to_i).join(',')
 						respond_to do |format|
 							format.json {render :json => { success: "true", route: routes} }
 						end

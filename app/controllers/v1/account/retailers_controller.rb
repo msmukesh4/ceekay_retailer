@@ -52,7 +52,7 @@ class V1::Account::RetailersController < V1::BaseController
 					retailer = Retailer.where(:dse_code => params[:dse_code], :route_no => params[:route], :retailer_code => params[:retailer_code] ).first
 					if !retailer.blank?
 						respond_to do |format|
-							format.json {render :json => { success: "true", retailer_code: retailer.retailer_code, :retailer_name => retailer.retailer_name, :dse_code => retailer.dse_code, :route => retailer.route_no, :address => retailer.address, :latitude => retailer.latitude, :longitude => retailer.longitude, :contact_number => retailer.contact_number, :pan => retailer.pan, :tin => retailer.tin, :active => retailer.is_actice} }
+							format.json {render :json => { success: "true", retailer_code: retailer.retailer_code, :retailer_name => retailer.retailer_name, :dse_code => retailer.dse_code, :route => retailer.route_no, :address => retailer.address, :latitude => retailer.latitude, :longitude => retailer.longitude, :contact_number => retailer.contact_number, :pan => retailer.pan, :tin => retailer.tin, :active => retailer.is_active} }
 						end
 					else
 						respond_to do |format|
@@ -88,9 +88,13 @@ class V1::Account::RetailersController < V1::BaseController
 					retailer = Retailer.where(:dse_code => params[:dse_code], :retailer_code => params[:retailer_code]).first
 
 					if !retailer.blank?
-						retailer.address = params[:address] if !params[:address].blank?
-						retailer.latitude = params[:latitude] if !params[:latitude].blank?
-						retailer.longitude = params[:longitude] if !params[:longitude].blank?
+						retailer.address = params[:address] 
+						retailer.latitude = params[:latitude] 
+						retailer.longitude = params[:longitude]
+						retailer.contact_number = params[:contact_number]
+						retailer.pan = params[:pan]
+						retailer.tin = params[:tin]
+
 						if retailer.save
 							respond_to do |format|
 								format.json {render :json => { success: "true", reason: "retailer updated successfully" } }
@@ -147,7 +151,7 @@ class V1::Account::RetailersController < V1::BaseController
 								:contact_number => rtlr.contact_number,
 								:pan => rtlr.pan,
 								:tin => rtlr.tin,
-								:active => rtlr.is_actice
+								:active => rtlr.is_active
 
 							}
 							retailer_array << retailer_details
@@ -203,7 +207,7 @@ class V1::Account::RetailersController < V1::BaseController
 								:contact_number => rtlr.contact_number,
 								:pan => rtlr.pan,
 								:tin => rtlr.tin,
-								:active => rtlr.is_actice
+								:active => rtlr.is_active
 							}
 							retailer_array << retailer_details
 						end
@@ -258,7 +262,7 @@ class V1::Account::RetailersController < V1::BaseController
 								:contact_number => rtlr.contact_number,
 								:pan => rtlr.pan,
 								:tin => rtlr.tin,
-								:active => rtlr.is_actice
+								:active => rtlr.is_active
 							}
 							retailer_array << retailer_details
 						end
