@@ -132,7 +132,7 @@ class UserController < ApplicationController
 
    	private
 	   	def user_sign_in_params
-	        params.require(:user).permit(:id, :is_admin, :is_first_logged_in, :dse_code, :password, :email, :name, :dob, :contact_number)
+	        params.require(:user).permit(:id, :is_admin, :is_first_logged_in, :dse_code, :password, :email, :name, :dob, :contact_number, :is_active)
 	    end
 
 	    def user_update

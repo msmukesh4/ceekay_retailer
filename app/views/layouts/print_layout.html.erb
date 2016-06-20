@@ -7,20 +7,39 @@
 </head>
 <body>
 <div id="content">
+	<div id="header">
+		<h2>Welcome to ceekay retailer</h2>
+	</div>
+
+
 	<div id="content">
 
-		
-      	
+		<div id="search">
+			<%= form_tag( @curr_path ,method: :get, authenticity_token: false) do %>
+			  	<p>
+			    	<%= text_field_tag :dse_code, params[:dse_code], :placeholder => "Enter dse code" %>
+			    	<%= text_field_tag :retailer_name, params[:retailer_name], :placeholder => "Enter retailer name" %>
+			    	<%= text_field_tag :route, params[:route], :placeholder => "Enter Route" %>
+			    	<%= submit_tag "Search", :name => nil %>
+			  	</p>
+			<% end %>
+		</div>
+
 		<%= link_to("Logout", {:controller => 'user', :action => 'logout'}, :class => 'danger') %>
 		<%= link_to("Upload", {:controller => 'upload', :action => 'index'}, :class => 'normal') %>
-		<%= link_to("See Retailers on Map", {:controller => 'retailer', :action => 'mapdemo'}, :class => 'normal') %>
+		<% if @curr_path == '/retailer/index' or @curr_path == '/retailer'%>
+			<%= link_to("See Retailers on Map", {:controller => 'retailer', :action => 'map'}, :class => 'normal') %>
+		<%else%>
+			<%= link_to("See Retailers list", {:controller => 'retailer', :action => 'index'}, :class => 'normal') %>
+		<% end %>
 		<%= link_to_function("Print this Page", "javascript:print()", :class => 'normal') %>
 		
 	</div>
 	<%= yield %>
 
-	<div id="footer">
 
+	<div id="footer">
+		<h3 > &copy; &nbsp; Ceekay Retailer </h3>
 	</div>
 
 </div>
