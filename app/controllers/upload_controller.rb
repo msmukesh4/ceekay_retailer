@@ -40,7 +40,7 @@ class UploadController < ApplicationController
 			    usr = User.where(:dse_code => dse).first
 			    puts usr.inspect
 			    if !usr
-			    	puts "dse code not allocated to any user : #{dse}"
+			    	puts "DSE code not allocated to any user : #{dse}"
 			    	u = User.new
 			    	u.dse_code = dse
 			    	u.email = dse
@@ -49,10 +49,10 @@ class UploadController < ApplicationController
 			    	if u.save
 			    		@user_count += 1
 			    	else
-			    		puts "user with dse code #{dse} not saved"
+			    		puts "User with dse code #{dse} not saved"
 			    	end
 			    else
-			    	puts "dse code allocated to user #{usr.id}"
+			    	puts "DSE code allocated to user #{usr.id}"
 			    end
 			    retailer.save
 			    puts retailer.inspect
@@ -88,7 +88,7 @@ class UploadController < ApplicationController
 				    upload.file_name = name
 				    upload.path = directory
 				    upload.save
-				    flash[:notice] = "File uploaded and #{rows} retailes and #{@user_count} users created"
+				    flash[:notice] = "File uploaded and #{rows} Retailers and #{@user_count} Users created"
 				    redirect_to(:controller => 'retailer', :action => 'index')
 				# else
 					# flash[:notice] = "one excel file already uploaded"
@@ -102,7 +102,7 @@ class UploadController < ApplicationController
 			   
 		rescue Exception => e
 			puts "Exception : #{e}"
-			flash[:notice] = "please select an excel file !!!"
+			flash[:notice] = "Please select an excel file !!!"
 			redirect_to(:action => 'index')
 		end
 	end

@@ -47,12 +47,12 @@ class UserController < ApplicationController
 		               		end
 		           		else
 		            		puts "user is not admin"
-		                   	flash[:notice] = "User cannot log in !! only admin can"
+		                   	flash[:notice] = "User cannot log in !! Only admin can"
 		                   	# render('login')
 		        		end
 		    		else
 		          		flash[:notice] = "Incorrect password"
-		          		flash[:notice] = "please input password !!" if @user.password.blank?
+		          		flash[:notice] = "Please input password !!" if @user.password.blank?
 		        	end
 		     	end
 
@@ -70,7 +70,7 @@ class UserController < ApplicationController
 		     		render('login')
 		     	end
 		    else
-		    	flash[:notice] = "please input email id !!"
+		    	flash[:notice] = "Please input email id !!"
 		    	render('login')
 		    end
    		rescue Exception => e
@@ -105,11 +105,11 @@ class UserController < ApplicationController
 			    	u.is_first_logged_in = true
 			    	u.save
 			      # If update succeeds, redirect to the index action
-			      flash[:notice] = "user #{@user.id} updated successfully."
+			      flash[:notice] = "User #{@user.id} updated successfully."
 			      redirect_to(:controller => 'retailer', :action => 'index')
 			    else
 			      # If update fails, redisplay the form so user can fix problems
-			      flash[:notice] = "invalid fields"
+			      flash[:notice] = "Invalid fields"
 			      render('edit')
 			    end
 			else
