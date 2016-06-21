@@ -11,26 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160618102049) do
+ActiveRecord::Schema.define(version: 20160621132352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "adminpack"
 
   create_table "retailers", force: true do |t|
     t.string   "retailer_code"
     t.string   "retailer_name"
     t.string   "dse_code"
     t.string   "route_no"
-    t.string   "address"
-    t.decimal  "latitude",                  precision: 9, scale: 6, default: 0.0
-    t.decimal  "longitude",                 precision: 9, scale: 6, default: 0.0
+    t.string   "address",                                default: ""
+    t.decimal  "latitude",       precision: 9, scale: 6, default: 0.0
+    t.decimal  "longitude",      precision: 9, scale: 6, default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "contact_number", limit: 15
-    t.boolean  "is_active",                                         default: true
-    t.string   "pan",            limit: 15
-    t.string   "tin",            limit: 15
+    t.string   "contact"
+    t.string   "tin_no"
+    t.string   "pan_no"
+    t.string   "contact_number",                         default: ""
+    t.boolean  "is_active",                              default: true
+    t.string   "pan",                                    default: ""
+    t.string   "tin",                                    default: ""
   end
 
   create_table "uploads", force: true do |t|
