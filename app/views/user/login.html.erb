@@ -4,24 +4,27 @@
     </div>
 <% end %>
 
-<%= form_for(:user, :url => {:action => 'validate_user'}, :html => {:multipart => true}) do |f| %>
-	<div class="log-input">
-		<div class="log-input-left">			   
-			<%= f.label("Email") %>
+<div class ="form-style-6">
+	<h1>Login to Ceekay Retailer</h1>
+	<%= form_for(:user, :url => {:action => 'validate_user'}, :html => {:multipart => true}) do |f| %>
+		<div class="log-input">
+			<div class="log-input-left">   
+				<%= f.label("Email") %>
+			</div>
+			<div class="log-input-left">			   
+				<%= f.text_field(:email) %>
+			</div>				
+			<div class="clearfix"> </div>
 		</div>
-		<div class="log-input-left">			   
-			<%= f.text_field(:email) %>
-		</div>				
-		<div class="clearfix"> </div>
-	</div>
-	<div class="log-input">
-		<div class="log-input-left">
-		   <%= f.label("Password") %>
+		<div class="log-input">
+			<div class="log-input-left">
+			   <%= f.label("Password") %>
+			</div>
+			<div class="log-input-left">
+			   <%= f.password_field(:password) %>
+			</div>
+			<div class="clearfix"> </div>
 		</div>
-		<div class="log-input-left">
-		   <%= f.password_field(:password) %>
-		</div>
-		<div class="clearfix"> </div>
-	</div>
-	<%= submit_tag("Login to your account") %>
+		<%= submit_tag("Login to your account") %>
+</div>
 <% end %>
