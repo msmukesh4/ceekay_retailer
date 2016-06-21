@@ -120,3 +120,6 @@ a.normal:hover { background: #179EE2; }
 .green_button{
   background: #2ebc99 !important;
 }
+.footer{
+  position: fixed;
+}
