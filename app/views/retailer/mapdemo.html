@@ -8,6 +8,13 @@
         background-color: #CCC;
 
       }
+
+      @media print
+      {
+        #content * { visibility: hidden; }
+        #map * { visibility: visible; }
+        #map { position: absolute; top: 40px; left: 30px; }
+      }
     </style>
   </head>
   <body>
@@ -22,11 +29,12 @@
           var markers = []
           var i = 0
           var j = 0
+          defaultLatlng = new google.maps.LatLng(22,88);
+
           <% pos = 0%>
           <% @retailers.each do |rtlr|%>
 
             myLatlng[i] = new google.maps.LatLng(<%= rtlr.latitude %>,<%= rtlr.longitude %>);
-
             markers[i] = new google.maps.Marker({
               position: myLatlng[i],
               title: "<%= rtlr.address %>"
@@ -37,8 +45,8 @@
           <% end %>
           
           var mapOptions = {
-            zoom: 7,
-            center: myLatlng[0]
+            zoom: 4,
+            center: defaultLatlng
           }
 
           var map = new google.maps.Map(document.getElementById("map"), mapOptions);

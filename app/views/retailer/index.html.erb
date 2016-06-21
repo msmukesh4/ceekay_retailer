@@ -8,6 +8,16 @@
 
 <%= link_to("Add New Retailer", {:action => 'new'}, :class => 'action new') %>
 
+<style type="text/css">
+@media print
+  {
+    #content * { visibility: hidden; }
+    #index * { visibility: visible; }
+    .actions {  display: none;}
+    #index { position: absolute; top: 40px; left: 30px; }
+  }
+</style>
+
 <div id="index">
 	<table class="listing" summary="Retailer list">
 	    <tr class="header">
@@ -22,7 +32,7 @@
 	      	<th>Latitude</th>
 	      	<th>Longitude</th>
 	      	<th>Address</th>
-	      	<th>Actions</th>
+	      	<th class="actions">Actions</th>
 	    </tr>
 	    <% pos=1 %>
 	    <% @retailers.each do |retailer| %>
