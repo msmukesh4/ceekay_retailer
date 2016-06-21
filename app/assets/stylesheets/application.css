@@ -21,7 +21,7 @@ img { border: none; }
 table { border-collapse: collapse; }
 table tr th, table tr td { vertical-align: top; text-align: center;
   padding: 5px; }
-table tr th {background: #FFFF66;
+table tr th {background: #00BCD4;
   padding: 5px;}
 #content { padding-top: 10px; 
   padding-left: 30px;
@@ -85,19 +85,9 @@ a:hover { text-decoration: underline; }
 
 /* large action buttons */
 a.action { float: right; padding: 1px 1px; margin: 0 0 1em 1em;
-  background: #94B26F; color: #4C2516;  border: 1px solid #4C2516;
+  background: #00BCD4; color: #FFFFFF;  border: 2px solid #777;
   text-decoration: none; font-size: 1.2em; text-align: center; }
-a.action:hover { background: #B6D491; }
-
-a.danger { float: right; padding: 3px 10px; margin: 0 0 2em 2em;
-  background: #DB1616; color: #000000;
-  text-decoration: none; font-size: 1.2em; text-align: center; }
-a.danger:hover { background: #FF7979; }
-
-a.normal { float: left; padding: 3px 10px; margin: 0 0 2em 2em;
-  background: #6DC2EC; color: #000000;
-  text-decoration: none; font-size: 1.2em; text-align: center; }
-a.normal:hover { background: #179EE2; }
+a.action:hover { background: #14577c; }
 
 /* small action buttons */
 .actions { width: 150px; }
@@ -107,21 +97,73 @@ a.normal:hover { background: #179EE2; }
 /* CRUD */
 .notice { height: 1.25em; padding: 0.5em; text-align: center;
   background: #B6D491; color: #4C2516; }
-.back-link { font-size: 0.8em; margin-bottom: 1em; background: #FFB266; padding: 0.8em }
+.back-link { font-size: 0.8em; margin-bottom: 1em; background: #14577c; color: #fff; padding: 0.8em }
 .form-buttons { text-align: center; margin: 1.2em 0; }
 .index table { clear: both; width: 100%; }
 
 /* zebra striping for table rows */
-.odd { background: #6DC2EC; }
-.odd:hover{ background: #179EE2 }
-.even { background: #F0C7CE; }
-.even:hover { background: #E63B57; }
+.odd { background: #FFFFFF; }
+.odd:hover{ background: #add8e6; }
+.even { background: #EEEEEE; }
+.even:hover { background: #CCC; }
 .center { text-align: center; }
 
 .footer{
   position: fixed !important;
 }
-.green_button{
+.green-button{
   background: #2ebc99 !important;
 }
+.nav-bar{
+  height: 30px;
+  background: #14577c !important;
+}
 
+.nav-bar-right { float: right; padding: 3px 10px; margin-right: 10px;
+  ; color: #6dc2ec;
+  text-decoration: none; font-size: 1.2em; text-align: center; }
+
+.nav-bar-left { float: left; padding: 3px 10px; margin-right:10px; color: #FFFFFF;
+  text-decoration: none; font-size: 1.2em; text-align: center; }
+
+.app-icon{
+  height: 40px;
+  padding: 0px !important;
+
+}
+
+.form-button {
+    background-color: #14577c; /* Green */
+    border: none;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 2px 2px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.custom-form-input{
+  padding: 5px !important;
+}
+.search-button {
+    background-color: #14577c; /* Green */
+    border: none;
+    color: white;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.shadow-button {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}

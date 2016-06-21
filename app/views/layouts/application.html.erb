@@ -7,22 +7,11 @@
 </head>
 <body>
 	<div id="header">
-		<h2>Welcome to Ceekay Tracker</h2>
 	</div>
-
 	<div id="content">
-		<div id="content">
-	      	
-			<%= link_to("Logout", {:controller => 'user', :action => 'logout'}, :class => 'danger') %>
-			
-		</div>
+		
 		<%= yield %>
 
 	</div>
-	
-	<div id="footer" class="footer">
-		<h4> &copy; &nbsp; Ceekay Tracker </h4>
-	</div>
-
 </body>
 </html>
