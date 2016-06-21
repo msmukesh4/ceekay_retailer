@@ -82,7 +82,7 @@ class UserController < ApplicationController
    	def edit
    		@user = User.find(params[:id])
    		if @user.is_first_logged_in
-   			flash[:notice] = "you have already changed your password !!"
+   			# flash[:notice] = "you have already changed your password !!"
    			redirect_to(:controller => 'retailer', :action => 'index')
    		end
 		puts @user.inspect
