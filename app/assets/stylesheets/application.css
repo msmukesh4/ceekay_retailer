@@ -117,9 +117,11 @@ a.normal:hover { background: #179EE2; }
 .even { background: #F0C7CE; }
 .even:hover { background: #E63B57; }
 .center { text-align: center; }
-.green_button{
-  background: #2ebc99 !important;
-}
+
 .footer{
   position: fixed !important;
 }
+.green_button{
+  background: #2ebc99 !important;
+}
+
