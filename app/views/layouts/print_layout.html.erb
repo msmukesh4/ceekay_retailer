@@ -21,7 +21,7 @@
 			<%= link_to("Add New Retailer", {:action => 'new'}, :class => 'action new', :class => 'normal') %>
 			
 			<%= link_to("See Retailers on Map", {:controller => 'retailer', :action => 'map'}, :class => 'normal') %>
-			
+
 			<%= link_to("See Retailers list", {:controller => 'retailer', :action => 'index'}, :class => 'normal') %>
 			
 			<%= link_to_function("Print", "javascript:print()", :class => 'normal') %>
@@ -42,7 +42,7 @@
 		<%= yield %>
 	</div>
 
-	<div id="footer">
+	<div id="footer" class="footer">
 		<h4> &copy; &nbsp; Ceekay Tracker </h4>
 	</div>
 
