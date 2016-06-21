@@ -81,7 +81,7 @@ class RetailerController < ApplicationController
 	    	end
 	    	puts "after update "+@retailer.inspect
 	      	# If update succeeds, redirect to the index action
-	      	flash[:notice] = "retailer #{@retailer.id} updated successfully."
+	      	flash[:notice] = "Retailer #{@retailer.id} updated successfully."
 	      	redirect_to(:action => 'index')
 	    else
 	      # If update fails, redisplay the form so user can fix problems
@@ -99,7 +99,7 @@ class RetailerController < ApplicationController
 	    retailer = Retailer.find(params[:id])
 	    retailer.is_active = false
 	    retailer.save
-	    flash[:notice] = "retailer '#{retailer.retailer_name}' destroyed successfully."
+	    flash[:notice] = "Retailer '#{retailer.retailer_name}' destroyed successfully."
 	    redirect_to(:action => 'index')
 
 	end

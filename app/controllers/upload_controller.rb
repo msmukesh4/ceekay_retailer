@@ -6,9 +6,9 @@ class UploadController < ApplicationController
 	def export_xls_to_db(path)
 		row_number = -1
 		@user_count = 0
+		new_retailers_list = []
 		puts "path : #{Rails.public_path}/uploads/ck_retailers.xlsx"
 		workbook = RubyXL::Parser.parse("#{Rails.public_path}/uploads/ck_retailers.xlsx")
-		Retailer.update_all(:is_active => false)
 
 		worksheet = workbook[0]
 
@@ -24,26 +24,19 @@ class UploadController < ApplicationController
 
 		  		puts "Details :  dse : #{dse} | rcode = #{r_code} | r_name = #{r_name} | r_route_no = #{r_route_no.to_i}"
 
+				new_retailers_list.push(r_code)
 		  		retailer = Retailer.where(:retailer_code => r_code).first
-
-		  		puts "Retailer before:"+retailer.inspect
 
 		  		# retailer not found
 		  		if retailer.blank?
 		  			retailer = Retailer.new
 		  		end
-
-		  		puts "Retailer after:"+retailer.inspect
-
 			   
 			    retailer.retailer_code = r_code
 			    retailer.retailer_name = r_name
 			    retailer.dse_code = dse
 			    retailer.route_no = r_route_no.to_i.to_s
 			    retailer.is_active = true
-
-			    		  		puts "Retailer after2:"+retailer.inspect
-
 
 			    usr = User.where(:dse_code => dse).first
 			    puts usr.inspect
@@ -68,9 +61,16 @@ class UploadController < ApplicationController
 		  	row_number += 1
 		  	puts row_number
 		}
-		
+		deactivateOldEntries(new_retailers_list)
 		puts "#{row_number } rows inserted"
 		return row_number
+	end
+
+	def deactivateOldEntries(new_retailers_list)
+		retailer = Retailer.where('retailer_code NOT IN (?)', new_retailers_list)
+				puts "All old retailers list"+retailer.inspect
+
+		retailer.update_all( {:is_active => false})
 	end
 
 	def index
