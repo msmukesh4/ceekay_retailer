@@ -23,10 +23,11 @@
       <button onclick="myFunction()">Print this page</button>
 
       <script>
-
+        var infoWindow = []
         function initMap3() {
           var myLatlng = []
           var markers = []
+          
           var i = 0
           var j = 0
           defaultLatlng = new google.maps.LatLng(22,88);
@@ -37,9 +38,13 @@
             myLatlng[i] = new google.maps.LatLng(<%= rtlr.latitude %>,<%= rtlr.longitude %>);
             markers[i] = new google.maps.Marker({
               position: myLatlng[i],
-              title: "<%= rtlr.retailer_name %>"
+              title: "<%= rtlr.retailer_name %>",
+              draggable: false
             });
-
+            infoWindow[i] = new google.maps.InfoWindow({
+              content: "<%= rtlr.retailer_code %>",
+              maxWidth: 150
+            });
             i++;
 
           <% end %>
@@ -54,7 +59,12 @@
 
           for (j = 0; j < i; j++) {
             markers[j].setMap(map)
+            infoWindow[j].open(map, markers[j]);
+          
           }
+
+
+    
 
         }
 
