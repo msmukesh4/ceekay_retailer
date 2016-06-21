@@ -26,16 +26,24 @@ class UploadController < ApplicationController
 
 		  		retailer = Retailer.where(:retailer_code => r_code).first
 
+		  		puts "Retailer before:"+retailer.inspect
+
 		  		# retailer not found
 		  		if retailer.blank?
 		  			retailer = Retailer.new
 		  		end
+
+		  		puts "Retailer after:"+retailer.inspect
+
 			   
 			    retailer.retailer_code = r_code
 			    retailer.retailer_name = r_name
 			    retailer.dse_code = dse
 			    retailer.route_no = r_route_no.to_i.to_s
 			    retailer.is_active = true
+
+			    		  		puts "Retailer after2:"+retailer.inspect
+
 
 			    usr = User.where(:dse_code => dse).first
 			    puts usr.inspect
