@@ -79,7 +79,7 @@ class UploadController < ApplicationController
 		    puts "name : #{name}, ext : #{ext}"
 		    if ext == "xlsx" or ext == "xls"
 		    	directory = "#{Rails.public_path}/uploads"
-			    path = File.join(directory, name)
+			    path = File.join(directory, "/ck_retailers.xlsx")
 			    v = File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
 			    puts "uploading... : #{v} || path : #{path} || directory : #{directory}"
 			    # if Upload.last.blank?
