@@ -22,7 +22,7 @@ class UploadController < ApplicationController
 		  		r_name = row.cells[1] && row.cells[1].value
 		  		r_route_no = row.cells[3] && row.cells[3].value
 
-		  		puts "Details :  dse : #{dse} | rcode = #{r_code} | r_name = #{r_name} | r_route_no = #{r_route_no}"
+		  		puts "Details :  dse : #{dse} | rcode = #{r_code} | r_name = #{r_name} | r_route_no = #{r_route_no.to_i}"
 
 		  		retailer = Retailer.where(:retailer_code => r_code).first
 
@@ -34,7 +34,7 @@ class UploadController < ApplicationController
 			    retailer.retailer_code = r_code
 			    retailer.retailer_name = r_name
 			    retailer.dse_code = dse
-			    retailer.route_no = r_route_no
+			    retailer.route_no = r_route_no.to_i.to_s
 			    retailer.is_active = true
 
 			    usr = User.where(:dse_code => dse).first
