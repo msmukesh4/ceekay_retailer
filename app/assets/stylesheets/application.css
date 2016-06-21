@@ -28,28 +28,51 @@ table tr th {background: #FFFF66;
   padding-right: 10px;
   padding-bottom: 10px;
 }
-h1 ,h2, h3 {
+h1 ,h2 {
   text-align:center;
   padding: 2px;
 }
+
+h3 {
+  text-align:left;
+  padding: 2px;
+  margin-left: 0px;
+  color: red;
+}
+
 #navigation a:hover { background: #F2DC87; }
 #header {
+
+  background: #000000; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left, #53346D , #000000); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, #53346D , #000000); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, #53346D , #000000); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, #53346D , #000000); /* Standard syntax */
+
   position:relative;
   top:0px;
   left:0px;
   width:100%;
-  background-color:black;
   color:white;
   text-align:center;
   padding:3px;
 
 }
 #footer {
+
+  background: #000000; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left, #53346D , #000000); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, #53346D , #000000); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, #53346D , #000000); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, #53346D , #000000); /* Standard syntax */
+  
     position:relative;
     bottom:0px;
+    margin-bottom: 0px;
     left:0px;
+    bottom: 0px;
     width:100%;
-    background-color:black;
+    height: 55px;
     color:white;
     clear:both;
     text-align:center;
