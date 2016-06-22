@@ -42,7 +42,7 @@ class UserController < ApplicationController
 		           				authorized_user = u.id
 
 		                		puts "user is not logged in #{u.id}"
-		            			flash[:notice] = "You are Successfully Logged in please Enter New Email id and password to continue..."
+		            			flash[:notice] = "You are Successfully Logged in. Please enter New password to continue..."
 		            			# redirect_to(:action => 'edit', :id => u.id)
 		               		end
 		           		else

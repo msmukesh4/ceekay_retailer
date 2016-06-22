@@ -8,7 +8,7 @@
 	<%= form_for(:user, :url => {:action => 'update', :id => @user.id}) do |f| %>
 		<div class="log-input">
 			<div class="log-input-left">
-				<%= f.label("New Email ID * : ") %>
+				<%= f.label("Email ID * : ") %>
 			</div>
 			<div class="log-input-left">			   
 				<%= f.text_field(:email) %>
