@@ -30,6 +30,8 @@
 	      	<th>Latitude</th>
 	      	<th>Longitude</th>
 	      	<th>Address</th>
+	      	<th>Status</th>
+
 	      	<th class="actions">Actions</th>
 	    </tr>
 	    <% pos=1 %>
@@ -47,6 +49,8 @@
 		      	<td><%= retailer.latitude %></td>
 		      	<td><%= retailer.longitude %></td>
 		      	<td><%= retailer.address %></td>
+		      	<td><%if retailer.has_inconsistent_addresses %> <img src="/assets/danger-status.png" class="danger-icon"></img><%end%>
+		      	</td>
 		      	<td class="actions">
 		        	<%= link_to("Edit", {:action => 'edit', :id => retailer.id}, :class => 'action edit') %>
 		        	<%= link_to("Delete", {:action => 'delete', :id => retailer.id}, :class => 'action delete') %>

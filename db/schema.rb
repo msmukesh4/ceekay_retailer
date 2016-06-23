@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160621132352) do
+ActiveRecord::Schema.define(version: 20160623194519) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,18 +21,28 @@ ActiveRecord::Schema.define(version: 20160621132352) do
     t.string   "retailer_name"
     t.string   "dse_code"
     t.string   "route_no"
-    t.string   "address",                                default: ""
-    t.decimal  "latitude",       precision: 9, scale: 6, default: 0.0
-    t.decimal  "longitude",      precision: 9, scale: 6, default: 0.0
+    t.string   "address",                                            default: ""
+    t.decimal  "latitude",                   precision: 9, scale: 6, default: 0.0
+    t.decimal  "longitude",                  precision: 9, scale: 6, default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "contact"
     t.string   "tin_no"
     t.string   "pan_no"
-    t.string   "contact_number",                         default: ""
-    t.boolean  "is_active",                              default: true
-    t.string   "pan",                                    default: ""
-    t.string   "tin",                                    default: ""
+    t.string   "contact_number",                                     default: ""
+    t.boolean  "is_active",                                          default: true
+    t.string   "pan",                                                default: ""
+    t.string   "tin",                                                default: ""
+    t.decimal  "latitude2",                  precision: 9, scale: 6, default: 0.0
+    t.decimal  "longitude2",                 precision: 9, scale: 6, default: 0.0
+    t.decimal  "latitude3",                  precision: 9, scale: 6, default: 0.0
+    t.decimal  "longitude3",                 precision: 9, scale: 6, default: 0.0
+    t.string   "address2",                                           default: ""
+    t.string   "address3",                                           default: ""
+    t.boolean  "has_inconsistent_addresses",                         default: false
+    t.decimal  "accurate_lat",               precision: 9, scale: 6, default: 0.0
+    t.decimal  "accurate_long",              precision: 9, scale: 6, default: 0.0
+    t.string   "accurate_address",                                   default: ""
   end
 
   create_table "uploads", force: true do |t|
