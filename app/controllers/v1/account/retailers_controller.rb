@@ -129,6 +129,7 @@ class V1::Account::RetailersController < V1::BaseController
 							end
 							return
 						end
+						
 
 						if retailer.save
 							respond_to do |format|
