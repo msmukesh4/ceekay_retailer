@@ -7,7 +7,8 @@ class RetailerController < ApplicationController
 
 	def index
 		puts "session user id : #{session[:user_id]}"
-		@retailers = Retailer.search(params[:dse_code], params[:route], params[:retailer_name], params[:retailer_code])
+	    @retailers = Retailer.where("dse_code LIKE ? AND route_no LIKE ? AND retailer_name LIKE ? AND CAST(latitude AS text) LIKE ? AND CAST(longitude AS text) LIKE ? AND address LIKE ?" ,"%#{params[:dse_code]}%","%#{params[:route]}%","%#{params[:retailer_name]}%","%#{params[:latitude]}%","%#{params[:longitude]}%","%#{params[:address]}%")
+
 	end
 
 	def new

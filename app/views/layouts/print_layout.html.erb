@@ -29,11 +29,15 @@
 		</div>
 	<div id="content" style="margin-bottom:100px;">
 			<div id="search">
+				<h4> Search By: </h4>
 				<%= form_tag( @curr_path ,method: :get, authenticity_token: false) do %>
 				  	<p>
-				    	<%= text_field_tag :dse_code, params[:dse_code], :placeholder => "Enter DSE code", :class => "custom-form-input"%>
+				    	<%= text_field_tag :dse_code, params[:dse_code], :placeholder => "DSE code", :class => "custom-form-input"%>
 				    	<%= text_field_tag :retailer_name, params[:retailer_name], :placeholder => "Enter Retailer name", :class => "custom-form-input" %>
-				    	<%= text_field_tag :route, params[:route], :placeholder => "Enter Route", :class => "custom-form-input" %>
+				    	<%= text_field_tag :route, params[:route], :placeholder => "Route", :class => "custom-form-input" %>
+				    	<%= text_field_tag :latitude, params[:latitude], :placeholder => "Latitude", :class => "custom-form-input" %>
+				    	<%= text_field_tag :longitude, params[:longitude], :placeholder => "Longitude", :class => "custom-form-input" %>
+				    	<%= text_field_tag :address, params[:address], :placeholder => "Address", :class => "custom-form-input" %>
 				    	<%= submit_tag "Search", :name => nil, :class => "form-button shadow-button" %>
 				  	</p>
 				<% end %>
