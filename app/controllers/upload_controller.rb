@@ -91,9 +91,9 @@ class UploadController < ApplicationController
 			    v = File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
 			    puts "uploading... : #{v} || path : #{path} || directory : #{directory}"
 			    # if Upload.last.blank?
-			    # UploadExcelToDb.new(path)
+			    UploadExcelToDb.new(path)
 				# rows = export_xls_to_db(path)
-				 rows = perform(path)
+				 # rows = perform(path)
 			    upload = Upload.new
 			    upload.file_name = name
 			    upload.path = directory
@@ -121,10 +121,9 @@ class UploadController < ApplicationController
 		
 	end
 
+ end
 
-# end
-
-# class UploadExcelToDb < Struct.new(:path)
+class UploadExcelToDb < Struct.new(:path)
   	def perform(path)
 	    row_number = -1
 		@user_count = 0
