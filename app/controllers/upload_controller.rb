@@ -186,13 +186,13 @@ class UploadExcelToDb < Struct.new(:path)
 		  	puts row_number
 		}
 		deactivateOldEntries(new_retailers_list)
-		upload.last.is_completed = true
-		upload.last.save
-		puts upload.last
+		Upload.last.is_completed = true
+		Upload.last.save
+		puts Upload.last
 		puts "#{row_number } rows inserted"
   	end
 
-  	
+
 	def deactivateOldEntries(new_retailers_list)
 		retailer = Retailer.where('retailer_code NOT IN (?)', new_retailers_list)
 				puts "All old retailers list"+retailer.inspect
