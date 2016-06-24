@@ -2,6 +2,7 @@ class Retailer < ActiveRecord::Base
 
 	default_scope { where(is_active: true) }
 
+  	PER_PAGE = 2000
 
 	def self.search(dse_code,route,retailer_name,retailer_code)
 	  if dse_code or route or retailer_name or retailer_code
