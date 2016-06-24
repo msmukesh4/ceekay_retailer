@@ -17,9 +17,12 @@ class UploadController < ApplicationController
 		  
 		  	if row_number >= 0
 
-		  		dse = row.cells[2] && row.cells[2].value
 		  		r_code = row.cells[0] && row.cells[0].value
+		  		if r_code.blank? 
+		  			break
+		  		end
 		  		r_name = row.cells[1] && row.cells[1].value
+		  		dse = row.cells[2] && row.cells[2].value
 		  		r_route_no = row.cells[3] && row.cells[3].value
 
 		  		puts "Details :  dse : #{dse} | rcode = #{r_code} | r_name = #{r_name} | r_route_no = #{r_route_no.to_i}"
