@@ -12,5 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require ajax-spinner
 //= require turbolinks
 //= require_tree .
