@@ -73,13 +73,6 @@ class UploadController < ApplicationController
 	# end
 	# handle_asynchronously :export_xls_to_db
 
-	def deactivateOldEntries(new_retailers_list)
-		retailer = Retailer.where('retailer_code NOT IN (?)', new_retailers_list)
-				puts "All old retailers list"+retailer.inspect
-
-		retailer.update_all( {:is_active => false})
-	end
-
 	def index
 		# if !Upload.last.blank?
 		# 	flash[:notice] = "one excel file already uploaded"
@@ -198,4 +191,12 @@ class UploadExcelToDb < Struct.new(:path)
 		puts upload.last
 		puts "#{row_number } rows inserted"
   	end
+
+  	
+	def deactivateOldEntries(new_retailers_list)
+		retailer = Retailer.where('retailer_code NOT IN (?)', new_retailers_list)
+				puts "All old retailers list"+retailer.inspect
+
+		retailer.update_all( {:is_active => false})
+	end
 end
