@@ -124,7 +124,7 @@ class UploadController < ApplicationController
  end
 
 class UploadExcelToDb < Struct.new(:path)
-  	def perform(path)
+  	def perform
 	    row_number = -1
 		@user_count = 0
 		new_retailers_list = []
