@@ -90,7 +90,7 @@ class UploadController < ApplicationController
 			    path = File.join(directory, "/ck_retailers.xlsx")
 			   
 			    # if Upload.last.blank?
-			    Delayed::Job.enqueue UploadExcelToDb.new(path)
+			    Delayed::Job.enqueue UploadExcelToDb.new(path, params[:upload][:file])
 				# rows = export_xls_to_db(path)
 				 # rows = perform(path)
 			    upload = Upload.new
@@ -122,10 +122,10 @@ class UploadController < ApplicationController
 
 end
 
-class UploadExcelToDb < Struct.new(:path)
+class UploadExcelToDb < Struct.new(:path, :file)
 
   	def perform
-  		v = File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
+  		 v = File.open(path, "wb") { |f| f.write(file.read) }
 		puts "uploading... : #{v} || path : #{path} || directory : #{directory}"
 	    row_number = -1
 		@user_count = 0
