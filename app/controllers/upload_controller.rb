@@ -65,9 +65,13 @@ class UploadController < ApplicationController
 		  	puts row_number
 		}
 		deactivateOldEntries(new_retailers_list)
+		upload.last.is_completed = true
+		upload.last.save
+		puts upload.last
 		puts "#{row_number } rows inserted"
 		return row_number
 	end
+	handle_asynchronously :export_xls_to_db
 
 	def deactivateOldEntries(new_retailers_list)
 		retailer = Retailer.where('retailer_code NOT IN (?)', new_retailers_list)
