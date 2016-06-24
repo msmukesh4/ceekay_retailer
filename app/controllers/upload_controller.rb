@@ -88,8 +88,7 @@ class UploadController < ApplicationController
 		    if ext == "xlsx" or ext == "xls"
 		    	directory = "#{Rails.public_path}/uploads"
 			    path = File.join(directory, "/ck_retailers.xlsx")
-			    v = File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
-			    puts "uploading... : #{v} || path : #{path} || directory : #{directory}"
+			   
 			    # if Upload.last.blank?
 			    Delayed::Job.enqueue UploadExcelToDb.new(path)
 				# rows = export_xls_to_db(path)
@@ -126,6 +125,8 @@ end
 class UploadExcelToDb < Struct.new(:path)
 
   	def perform
+  		v = File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
+		puts "uploading... : #{v} || path : #{path} || directory : #{directory}"
 	    row_number = -1
 		@user_count = 0
 		new_retailers_list = []
