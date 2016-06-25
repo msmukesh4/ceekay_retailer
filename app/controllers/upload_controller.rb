@@ -170,10 +170,11 @@ class UploadExcelToDb < Struct.new(:path)
 			    puts usr.inspect
 			    if !usr
 			    	puts "DSE code not allocated to any user : #{dse}"
+			    	a = ApplicationController.new
 			    	u = User.new
 			    	u.dse_code = dse
 			    	u.email = dse
-			    	u.password = encrypt(dse)
+			    	u.password = a.encrypt(dse)
 			    	u.access_token = SecureRandom.hex(10)
 			    	if u.save
 			    		@user_count += 1
