@@ -82,41 +82,15 @@ class UploadController < ApplicationController
 
 	def create
 		begin
-			# name = params[:upload][:file].original_filename
-			# ext = name.split(".").last
-		 #    puts "name : #{name}, ext : #{ext}"
-		 #    if ext == "xlsx" or ext == "xls"
-		    	# directory = "#{Rails.public_path}/uploads"
-			    # path = File.join(directory, "/ck_retailers.xlsx")
-			   	# v = File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
-			   	tmp = params[:upload][:file].tempfile
-			   	# puts "temp file: ..."+tmp
-			    # require 'ftools'
-			    # file = File.join("public", params[:upload][:file].original_filename)
-			    # FileUtils.cp tmp.path, file
-				# puts "uploading... : #{v} || path : #{path} || directory : #{directory}"
 
-			    # if Upload.last.blank?
-			    Delayed::Job.enqueue UploadExcelToDb.new(tmp)
-				# rows = export_xls_to_db(path)
-				# rows = perform(tmp)
-			    # upload = Upload.new
-			    # upload.file_name = name
-			    # upload.path = directory
-			    # upload.save
-			    flash[:notice] = "File being uploaded"
-			    # sleep(20)
-			    redirect_to(:controller => 'retailer', :action => 'index')
-				# else
-					# flash[:notice] = "one excel file already uploaded"
-					# redirect_to(:controller => 'retailer', :action => 'index')
-				# end
-			# else
-			# 	puts "invalid file"
-			# 	flash[:notice] = "Select a valid excel file !!"
-			# 	redirect_to(:action => 'index')
-		 #    end
+			    require 'fileutils'
+			   	tmp = params[:upload][:file].tempfile
 			   
+			    Delayed::Job.enqueue UploadExcelToDb.new(tmp)
+			
+			    flash[:notice] = "File being uploaded"
+			    redirect_to(:controller => 'retailer', :action => 'index')
+			
 		rescue Exception => e
 			puts "Exception : #{e}"
 			flash[:notice] = "Please select an excel file !!!"
@@ -137,7 +111,6 @@ class UploadExcelToDb < Struct.new(:tmp)
 	    row_number = -1
 		@user_count = 0
 		new_retailers_list = []
-		# puts "path : #{Rails.public_path}/uploads/ck_retailers.xlsx"
 		workbook = RubyXL::Parser.parse(tmp)
 
 		worksheet = workbook[0]
