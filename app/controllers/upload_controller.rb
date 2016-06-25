@@ -97,9 +97,9 @@ class UploadController < ApplicationController
 				# puts "uploading... : #{v} || path : #{path} || directory : #{directory}"
 
 			    # if Upload.last.blank?
-			    # Delayed::Job.enqueue UploadExcelToDb.new(tmp)
+			    Delayed::Job.enqueue UploadExcelToDb.new(tmp)
 				# rows = export_xls_to_db(path)
-				rows = perform(tmp)
+				# rows = perform(tmp)
 			    # upload = Upload.new
 			    # upload.file_name = name
 			    # upload.path = directory
@@ -128,16 +128,16 @@ class UploadController < ApplicationController
 		
 	end
 
-# end
+end
 
-# class UploadExcelToDb < Struct.new(:tmp)
+class UploadExcelToDb < Struct.new(:tmp)
 
-  	def perform(tmp)
+  	def perform
   		
 	    row_number = -1
 		@user_count = 0
 		new_retailers_list = []
-		puts "path : #{Rails.public_path}/uploads/ck_retailers.xlsx"
+		# puts "path : #{Rails.public_path}/uploads/ck_retailers.xlsx"
 		workbook = RubyXL::Parser.parse(tmp)
 
 		worksheet = workbook[0]
