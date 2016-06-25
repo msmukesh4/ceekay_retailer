@@ -90,7 +90,8 @@ class UploadController < ApplicationController
 			    # path = File.join(directory, "/ck_retailers.xlsx")
 			   	# v = File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
 			   	tmp = params[:upload][:file].tempfile
-			    require 'ftools'
+			   	puts "temp file: ..."+tmp
+			    # require 'ftools'
 			    # file = File.join("public", params[:upload][:file].original_filename)
 			    # FileUtils.cp tmp.path, file
 				puts "uploading... : #{v} || path : #{path} || directory : #{directory}"
