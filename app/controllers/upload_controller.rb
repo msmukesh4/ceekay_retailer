@@ -82,10 +82,10 @@ class UploadController < ApplicationController
 
 	def create
 		begin
-			name = params[:upload][:file].original_filename
-			ext = name.split(".").last
-		    puts "name : #{name}, ext : #{ext}"
-		    if ext == "xlsx" or ext == "xls"
+			# name = params[:upload][:file].original_filename
+			# ext = name.split(".").last
+		 #    puts "name : #{name}, ext : #{ext}"
+		 #    if ext == "xlsx" or ext == "xls"
 		    	# directory = "#{Rails.public_path}/uploads"
 			    # path = File.join(directory, "/ck_retailers.xlsx")
 			   	# v = File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
@@ -111,11 +111,11 @@ class UploadController < ApplicationController
 					# flash[:notice] = "one excel file already uploaded"
 					# redirect_to(:controller => 'retailer', :action => 'index')
 				# end
-			else
-				puts "invalid file"
-				flash[:notice] = "Select a valid excel file !!"
-				redirect_to(:action => 'index')
-		    end
+			# else
+			# 	puts "invalid file"
+			# 	flash[:notice] = "Select a valid excel file !!"
+			# 	redirect_to(:action => 'index')
+		 #    end
 			   
 		rescue Exception => e
 			puts "Exception : #{e}"
