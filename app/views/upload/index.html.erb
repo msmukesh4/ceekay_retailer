@@ -8,7 +8,7 @@
 
 
 <div class = "well">
-   <%= form_tag '/upload/create', { :multipart => false } do %>
+   <%= form_tag '/upload/create', { :multipart => true } do %>
     	<p>
     		<%= file_field_tag 'upload[file]' %>
     	</p>
