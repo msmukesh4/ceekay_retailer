@@ -90,16 +90,16 @@ class UploadController < ApplicationController
 			    # path = File.join(directory, "/ck_retailers.xlsx")
 			   	# v = File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
 			   	tmp = params[:upload][:file].tempfile
-			   	puts "temp file: ..."+tmp
+			   	# puts "temp file: ..."+tmp
 			    # require 'ftools'
 			    # file = File.join("public", params[:upload][:file].original_filename)
 			    # FileUtils.cp tmp.path, file
 				puts "uploading... : #{v} || path : #{path} || directory : #{directory}"
 
 			    # if Upload.last.blank?
-			    Delayed::Job.enqueue UploadExcelToDb.new(tmp)
+			    # Delayed::Job.enqueue UploadExcelToDb.new(tmp)
 				# rows = export_xls_to_db(path)
-				 # rows = perform(path)
+				rows = perform(tmp)
 			    upload = Upload.new
 			    upload.file_name = name
 			    upload.path = directory
@@ -128,11 +128,11 @@ class UploadController < ApplicationController
 		
 	end
 
-end
+# end
 
-class UploadExcelToDb < Struct.new(:tmp)
+# class UploadExcelToDb < Struct.new(:tmp)
 
-  	def perform
+  	def perform(tmp)
   		
 	    row_number = -1
 		@user_count = 0
