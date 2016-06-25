@@ -94,7 +94,7 @@ class UploadController < ApplicationController
 			    # require 'ftools'
 			    # file = File.join("public", params[:upload][:file].original_filename)
 			    # FileUtils.cp tmp.path, file
-				puts "uploading... : #{v} || path : #{path} || directory : #{directory}"
+				# puts "uploading... : #{v} || path : #{path} || directory : #{directory}"
 
 			    # if Upload.last.blank?
 			    # Delayed::Job.enqueue UploadExcelToDb.new(tmp)
