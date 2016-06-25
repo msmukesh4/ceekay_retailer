@@ -26,4 +26,7 @@ CeekayRetailer::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+
+  config.threadsafe! unless defined?($rails_rake_task) && $rails_rake_task
+  
 end
