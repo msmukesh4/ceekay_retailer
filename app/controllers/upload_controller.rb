@@ -100,10 +100,10 @@ class UploadController < ApplicationController
 			    # Delayed::Job.enqueue UploadExcelToDb.new(tmp)
 				# rows = export_xls_to_db(path)
 				rows = perform(tmp)
-			    upload = Upload.new
-			    upload.file_name = name
-			    upload.path = directory
-			    upload.save
+			    # upload = Upload.new
+			    # upload.file_name = name
+			    # upload.path = directory
+			    # upload.save
 			    flash[:notice] = "File being uploaded"
 			    # sleep(20)
 			    redirect_to(:controller => 'retailer', :action => 'index')
