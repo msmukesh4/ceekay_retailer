@@ -96,8 +96,8 @@ class UploadController < ApplicationController
 				puts "uploading... : #{v} || path : #{path} || "
 
 			    # if Upload.last.blank?
-			    perform(path)
-			    # Delayed::Job.enqueue UploadExcelToDb.new(path)
+			    # perform(path)
+			    Delayed::Job.enqueue UploadExcelToDb.new(path)
 				# rows = export_xls_to_db(path)
 				 # rows = perform(path)
 			    # upload = Upload.new
@@ -128,11 +128,11 @@ class UploadController < ApplicationController
 		
 	end
 
-# end
+end
 
-# class UploadExcelToDb < Struct.new(:path)
+class UploadExcelToDb < Struct.new(:path)
 
-  	def perform(path)
+  	def perform
   		
 	    row_number = -1
 		@user_count = 0
