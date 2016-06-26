@@ -137,7 +137,7 @@ class UploadController < ApplicationController
 
 end
 
-class UploadExcelToDb < Struct.new()
+class UploadExcelToDb < Struct.new(:file)
 
   	def perform
   		
