@@ -90,6 +90,7 @@ class UploadController < ApplicationController
 			    path = File.join(directory, "ck_retailers.xlsx")
 			   	require 'fileutils'
 				require 'iconv'
+				tmp =  params[:upload][:file].tempfile
 				FileUtils.cp tmp.path, path
 
 			   	# tmp = params[:file_upload][:my_file].tempfile
