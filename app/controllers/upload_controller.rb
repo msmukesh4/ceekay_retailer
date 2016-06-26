@@ -87,17 +87,24 @@ class UploadController < ApplicationController
 		    puts "name : #{name}, ext : #{ext}"
 		    if ext == "xlsx" or ext == "xls"
 		    	 # directory = "#{Rails.public_path}"
-			     path = Rails.root.join("public", "ck_retailers.xlsx")
-			   	 v = File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
+			     # path = Rails.root.join("public", "ck_retailers.xlsx")
+			   	 # v = File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
+			   	require 'fileutils'
+				require 'iconv'
+
+				tmp = params[:upload][:file].tempfile
+				file = File.join("public","ck_retailers.xlsx")
+				FileUtils.cp tmp.path, file
+
 			   	# tmp = params[:file_upload][:my_file].tempfile
 			    # require 'ftools'
 			    # file = File.join("public", params[:upload][:file].original_filename)
 			    # FileUtils.cp tmp.path, file
-				puts "uploading... : #{v} || path : #{path} || "
+				# puts "uploading...  path : #{path} || "
 
 			    # if Upload.last.blank?
 			    # perform(path)
-			    Delayed::Job.enqueue UploadExcelToDb.new(path)
+			    Delayed::Job.enqueue UploadExcelToDb.new(file)
 				# rows = export_xls_to_db(path)
 				 # rows = perform(path)
 			    # upload = Upload.new
@@ -130,14 +137,14 @@ class UploadController < ApplicationController
 
 end
 
-class UploadExcelToDb < Struct.new(:path)
+class UploadExcelToDb < Struct.new()
 
   	def perform
   		
 	    row_number = -1
 		@user_count = 0
 		new_retailers_list = []
-		workbook = RubyXL::Parser.parse(path)
+		workbook = RubyXL::Parser.parse(file)
 
 		worksheet = workbook[0]
 
