@@ -82,15 +82,41 @@ class UploadController < ApplicationController
 
 	def create
 		begin
+			name = params[:upload][:file].original_filename
+			ext = name.split(".").last
+		    puts "name : #{name}, ext : #{ext}"
+		    if ext == "xlsx" or ext == "xls"
+		    	 directory = "#{Rails.public_path}/uploads"
+			     path = Rails.root.join(directory, "/ck_retailers.xlsx")
+			   	 v = File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
+			   	# tmp = params[:file_upload][:my_file].tempfile
+			    # require 'ftools'
+			    # file = File.join("public", params[:upload][:file].original_filename)
+			    # FileUtils.cp tmp.path, file
+				puts "uploading... : #{v} || path : #{path} || directory : #{directory}"
 
-			    require 'fileutils'
-			   	tmp = params[:upload][:file].tempfile
-			   
-			    Delayed::Job.enqueue UploadExcelToDb.new(tmp)
-			
+			    # if Upload.last.blank?
+			    perform(path)
+			    # Delayed::Job.enqueue UploadExcelToDb.new(path)
+				# rows = export_xls_to_db(path)
+				 # rows = perform(path)
+			    # upload = Upload.new
+			    # upload.file_name = name
+			    # upload.path = directory
+			    # upload.save
 			    flash[:notice] = "File being uploaded"
-			    redirect_to(:controller => 'retailer', :action => 'index')
-			
+			    # sleep(20)
+			    # redirect_to(:controller => 'retailer', :action => 'index')
+				# else
+					# flash[:notice] = "one excel file already uploaded"
+					# redirect_to(:controller => 'retailer', :action => 'index')
+				# end
+			else
+				puts "invalid file"
+				flash[:notice] = "Select a valid excel file !!"
+				redirect_to(:action => 'index')
+		    end
+			   
 		rescue Exception => e
 			puts "Exception : #{e}"
 			flash[:notice] = "Please select an excel file !!!"
@@ -102,16 +128,17 @@ class UploadController < ApplicationController
 		
 	end
 
-end
+# end
 
-class UploadExcelToDb < Struct.new(:tmp)
+# class UploadExcelToDb < Struct.new(:path)
 
-  	def perform
+  	def perform(path)
   		
 	    row_number = -1
 		@user_count = 0
 		new_retailers_list = []
-		workbook = RubyXL::Parser.parse(tmp)
+		puts "path : #{Rails.public_path}/uploads/ck_retailers.xlsx"
+		workbook = RubyXL::Parser.parse("#{Rails.public_path}/uploads/ck_retailers.xlsx")
 
 		worksheet = workbook[0]
 
