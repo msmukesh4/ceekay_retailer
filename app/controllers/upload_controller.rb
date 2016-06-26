@@ -137,8 +137,8 @@ class UploadExcelToDb < Struct.new(:path)
 	    row_number = -1
 		@user_count = 0
 		new_retailers_list = []
-		puts "path : #{Rails.public_path}/uploads/ck_retailers.xlsx"
-		workbook = RubyXL::Parser.parse("#{Rails.public_path}/ck_retailers.xlsx")
+		puts "path :"+ path
+		workbook = RubyXL::Parser.parse(path)
 
 		worksheet = workbook[0]
 
