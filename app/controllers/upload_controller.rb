@@ -106,7 +106,7 @@ class UploadController < ApplicationController
 			    # upload.save
 			    flash[:notice] = "File being uploaded"
 			    # sleep(20)
-			    # redirect_to(:controller => 'retailer', :action => 'index')
+			    redirect_to(:controller => 'retailer', :action => 'index')
 				# else
 					# flash[:notice] = "one excel file already uploaded"
 					# redirect_to(:controller => 'retailer', :action => 'index')
