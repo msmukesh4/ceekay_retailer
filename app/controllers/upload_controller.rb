@@ -86,14 +86,14 @@ class UploadController < ApplicationController
 			ext = name.split(".").last
 		    puts "name : #{name}, ext : #{ext}"
 		    if ext == "xlsx" or ext == "xls"
-		    	 directory = "#{Rails.public_path}/uploads"
-			     path = Rails.root.join(directory, "/ck_retailers.xlsx")
+		    	 # directory = "#{Rails.public_path}"
+			     path = Rails.root.join("public", "ck_retailers.xlsx")
 			   	 v = File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
 			   	# tmp = params[:file_upload][:my_file].tempfile
 			    # require 'ftools'
 			    # file = File.join("public", params[:upload][:file].original_filename)
 			    # FileUtils.cp tmp.path, file
-				puts "uploading... : #{v} || path : #{path} || directory : #{directory}"
+				puts "uploading... : #{v} || path : #{path} || "
 
 			    # if Upload.last.blank?
 			    perform(path)
@@ -138,7 +138,7 @@ class UploadController < ApplicationController
 		@user_count = 0
 		new_retailers_list = []
 		puts "path : #{Rails.public_path}/uploads/ck_retailers.xlsx"
-		workbook = RubyXL::Parser.parse("#{Rails.public_path}/uploads/ck_retailers.xlsx")
+		workbook = RubyXL::Parser.parse("#{Rails.public_path}/ck_retailers.xlsx")
 
 		worksheet = workbook[0]
 
