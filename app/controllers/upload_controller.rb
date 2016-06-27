@@ -69,22 +69,24 @@ end
 class UploadExcelToDb < Struct.new(:path)
 
   	def perform
-  		
+  		puts "path: "+path.inspect
 	    row_number = 0
 		@user_count = 0
 		new_retailers_list = []
 		# workbook = RubyXL::Parser.parse("#{Rails.public_path}/ck_retailers.xlsx")
 
 		# worksheet = workbook[0]
+		begin
+			xlsx = Roo::Spreadsheet.open(path)
+			xlsx = Roo::Excelx.new(path)
+			xlsx.default_sheet = xlsx.sheets[0]
 
-		xlsx = Roo::Spreadsheet.open(path)
-		xlsx = Roo::Excelx.new(path)
-		xlsx.default_sheet = xlsx.sheets[0]
-
-		xlsx.each_row_streaming do |row|
-puts row.inspect
+			xlsx.each_row_streaming do |row|
+	           puts row.inspect
+			end
+		rescue Exception => e
+			puts "Exception : #{e}"
 		end
-
 
 		# parsing the rows of excel sheet
 		xlsx.each_row_streaming do |row|
