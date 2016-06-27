@@ -11,6 +11,7 @@ gem 'pg'
 # gem 'sass-rails', '~> 4.0.0'
 
 gem 'rubyXL'
+gem 'rubyzip'
 
 # Use Uglifier as compressor for JavaScript assets
 # gem 'uglifier', '>= 1.3.0'
@@ -33,6 +34,8 @@ gem 'jbuilder', '~> 1.2'
 gem 'geokit'
 
 gem 'delayed_job_active_record'
+
+gem 'roo', '~> 2.4.0'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

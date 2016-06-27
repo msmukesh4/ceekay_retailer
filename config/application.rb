@@ -10,8 +10,8 @@ module CeekayRetailer
   class Application < Rails::Application
 
     Delayed::Worker.destroy_failed_jobs = false
-    Delayed::Worker.sleep_delay = 60
-    Delayed::Worker.max_attempts = 3
+    Delayed::Worker.sleep_delay = 5
+    Delayed::Worker.max_attempts = 1
     Delayed::Worker.logger = Logger.new(File.join(Rails.root, 'log', 'delayed_job.log'))
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
