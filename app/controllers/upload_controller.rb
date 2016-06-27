@@ -21,6 +21,9 @@ class UploadController < ApplicationController
 		    	directory = "#{Rails.public_path}"
 			    path = File.join(directory, "ck_retailers.xlsx")
 			    File.open(path, "wb") { |f| f.write(xlsxFile.read) }
+			    xlsx = Roo::Spreadsheet.open(path)
+				xlsx = Roo::Excelx.new(path)
+				xlsx.default_sheet = xlsx.sheets[0]
 			 #   	require 'roo'
 				# tmp =  params[:upload][:file].tempfile
 				# FileUtils.cp tmp.path, path
@@ -32,15 +35,15 @@ class UploadController < ApplicationController
 				# puts "uploading...  path : #{path} || "
 
 			    # if Upload.last.blank?
-			     perform(path)
-			    # Delayed::Job.enqueue UploadExcelToDb.new(path)
+			    flash[:notice] = "File being uploaded, Kindly wait"
+			     # perform(path)
+			    Delayed::Job.enqueue UploadExcelToDb.new(xlsx)
 				# rows = export_xls_to_db(path)
 				 # rows = perform(path)
 			    # upload = Upload.new
 			    # upload.file_name = name
 			    # upload.path = directory
 			    # upload.save
-			    flash[:notice] = "File being uploaded"
 			    # sleep(20)
 			    redirect_to(:controller => 'retailer', :action => 'index')
 				# else
@@ -64,12 +67,11 @@ class UploadController < ApplicationController
 		
 	end
 
-# end
+end
 
-# class UploadExcelToDb < Struct.new(:path)
+class UploadExcelToDb < Struct.new(:xlsx)
 
-  	def perform(path)
-  		puts "path: "+path.inspect
+  	def perform
 	    row_number = 0
 		@user_count = 0
 		new_retailers_list = []
@@ -77,9 +79,7 @@ class UploadController < ApplicationController
 
 		# worksheet = workbook[0]
 		begin
-			xlsx = Roo::Spreadsheet.open(path)
-			xlsx = Roo::Excelx.new(path)
-			xlsx.default_sheet = xlsx.sheets[0]
+
 
 			xlsx.each_row_streaming do |row|
 	           puts row.inspect
