@@ -45,7 +45,7 @@ class UploadController < ApplicationController
 			    # upload.path = directory
 			    # upload.save
 			    # sleep(20)
-			    redirect_to(:controller => 'retailer', :action => 'index')
+			    redirect_to(:controller => 'upload', :action => 'index')
 				# else
 					# flash[:notice] = "one excel file already uploaded"
 					# redirect_to(:controller => 'retailer', :action => 'index')
@@ -149,6 +149,8 @@ class UploadExcelToDb < Struct.new(:xlsx)
 		Upload.last.save
 		puts Upload.last
 		puts "#{row_number } rows inserted"
+		flash[:notice] = "File upload completed"
+
   	end
 
 
