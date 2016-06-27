@@ -32,8 +32,8 @@ class UploadController < ApplicationController
 				# puts "uploading...  path : #{path} || "
 
 			    # if Upload.last.blank?
-			     perform(path)
-			    # Delayed::Job.enqueue UploadExcelToDb.new(path)
+			     # perform(path)
+			    Delayed::Job.enqueue UploadExcelToDb.new(path)
 				# rows = export_xls_to_db(path)
 				 # rows = perform(path)
 			    # upload = Upload.new
@@ -64,13 +64,13 @@ class UploadController < ApplicationController
 		
 	end
 
-# end
+end
 
-# class UploadExcelToDb < Struct.new(:path)
+class UploadExcelToDb < Struct.new(:path)
 
-  	def perform(path)
+  	def perform
   		
-	    row_number = 1
+	    row_number = 0
 		@user_count = 0
 		new_retailers_list = []
 		# workbook = RubyXL::Parser.parse("#{Rails.public_path}/ck_retailers.xlsx")
@@ -81,19 +81,26 @@ class UploadController < ApplicationController
 		xlsx = Roo::Excelx.new(path)
 		xlsx.default_sheet = xlsx.sheets[0]
 
+		xlsx.each_row_streaming do |row|
+puts row.inspect
+		end
+
 
 		# parsing the rows of excel sheet
-		xlsx.each_row do |row|
-		  
-		  	if row_number >= 1
+		xlsx.each_row_streaming do |row|
+		  		  		puts "rcode:0"
 
-		  		r_code = row.cells[row_number][0] && row.cells[row_number][0].value
+		  	if row_number >= 1
+		  		puts "rcode:1"
+
+		  		r_code = xlsx.cell(row_number,1)
+		  		puts "rcode:2"+r_code
 		  		if r_code.blank? 
 		  			break
 		  		end
-		  		r_name = row.cells[row_number][1] && row.cells[row_number][1].value
-		  		dse = row.cells[row_number][2] && row.cells[row_number][2].value
-		  		r_route_no = row.cells[row_number][3] && row.cells[row_number][3].value
+		  		r_name = xlsx.cell(row_number,2)
+		  		dse = xlsx.cell(row_number,3)
+		  		r_route_no = xlsx.cell(row_number,4)
 
 		  		puts "Details :  dse : #{dse} | rcode = #{r_code} | r_name = #{r_name} | r_route_no = #{r_route_no.to_i}"
 
