@@ -133,7 +133,7 @@ class UploadController < ApplicationController
 		  	end
 		  	row_number += 1
 		  	puts row_number
-		}
+		end
 		deactivateOldEntries(new_retailers_list)
 		Upload.last.is_completed = true
 		Upload.last.save
