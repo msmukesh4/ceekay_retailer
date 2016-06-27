@@ -17,6 +17,7 @@ class UploadController < ApplicationController
 			ext = name.split(".").last
 		    puts "name : #{name}, ext : #{ext}"
 		    if ext == "xlsx" or ext == "xls"
+		    	xlsxFile = params[:upload][:file]
 		    	directory = "#{Rails.public_path}"
 			    path = File.join(directory, "ck_retailers.xlsx")
 			    File.open(path, "wb") { |f| f.write(xlsxFile.read) }
