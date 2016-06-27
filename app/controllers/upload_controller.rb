@@ -17,14 +17,12 @@ class UploadController < ApplicationController
 			ext = name.split(".").last
 		    puts "name : #{name}, ext : #{ext}"
 		    if ext == "xlsx" or ext == "xls"
-		    	xlsxFile = params[:upload][:file]
 		    	directory = "#{Rails.public_path}"
-			    path = File.join(directory, "ck_retailers.xlsx")
-			    File.open(path, "wb") { |f| f.write(xlsxFile.read) }
-			    xlsx = Roo::Spreadsheet.open(path)
-				xlsx = Roo::Excelx.new(path)
-				xlsx.default_sheet = xlsx.sheets[0]
-			 #   	require 'roo'
+                path = File.join(directory, "/ck_retailers.xlsx")
+                v = File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
+                puts "uploading... : #{v} || path : #{path} || directory : #{directory}"
+                # if Upload.last.blank?
+                # Delayed::Job.enqueue UploadExcelToDb.new(path)
 				# tmp =  params[:upload][:file].tempfile
 				# FileUtils.cp tmp.path, path
 
@@ -36,8 +34,7 @@ class UploadController < ApplicationController
 
 			    # if Upload.last.blank?
 			    flash[:notice] = "File being uploaded, Kindly wait"
-			     # perform(path)
-			    Delayed::Job.enqueue UploadExcelToDb.new(xlsx)
+			     perform()
 				# rows = export_xls_to_db(path)
 				 # rows = perform(path)
 			    # upload = Upload.new
@@ -67,45 +64,34 @@ class UploadController < ApplicationController
 		
 	end
 
-end
+# end
 
-class UploadExcelToDb < Struct.new(:xlsx)
+# class UploadExcelToDb < Struct.new(:xlsx)
 
   	def perform
-	    row_number = 0
+	    row_number = -1
 		@user_count = 0
 		new_retailers_list = []
-		# workbook = RubyXL::Parser.parse("#{Rails.public_path}/ck_retailers.xlsx")
-
-		# worksheet = workbook[0]
-		begin
-
-
-			xlsx.each_row_streaming do |row|
-	           puts row.inspect
-			end
-		rescue Exception => e
-			puts "Exception : #{e}"
-		end
-
+		puts "path inside BG job : #{Rails.public_path}/ck_retailers.xlsx"
+		workbook = RubyXL::Parser.parse("#{Rails.public_path}/ck_retailers.xlsx")
+		worksheet = workbook[0]
+		
 		# parsing the rows of excel sheet
-		xlsx.each_row_streaming do |row|
+		worksheet.each { |row|
 		  		  		puts "rcode:0"
 
-		  	if row_number >= 1
+		  	if row_number >= 0
 		  		puts "rcode:1"
 
-		  		r_code = xlsx.cell(row_number,1)
-		  		puts "rcode:2"+r_code
+		  		r_code = row.cells[0] && row.cells[0].value
 		  		if r_code.blank? 
 		  			break
 		  		end
-		  		r_name = xlsx.cell(row_number,2)
-		  		dse = xlsx.cell(row_number,3)
-		  		r_route_no = xlsx.cell(row_number,4)
+		  		r_name = row.cells[1] && row.cells[1].value
+		  		dse = row.cells[2] && row.cells[2].value
+		  		r_route_no = row.cells[3] && row.cells[3].value
 
-		  		puts "Details :  dse : #{dse} | rcode = #{r_code} | r_name = #{r_name} | r_route_no = #{r_route_no.to_i}"
-
+				puts "Details :  dse : #{dse} | rcode = #{r_code} | r_name = #{r_name} | r_route_no = #{r_route_no.to_i}"
 				new_retailers_list.push(r_code)
 		  		retailer = Retailer.where(:retailer_code => r_code).first
 
@@ -143,7 +129,7 @@ class UploadExcelToDb < Struct.new(:xlsx)
 		  	end
 		  	row_number += 1
 		  	puts row_number
-		end
+		}
 		deactivateOldEntries(new_retailers_list)
 		Upload.last.is_completed = true
 		Upload.last.save
