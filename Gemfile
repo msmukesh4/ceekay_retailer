@@ -25,6 +25,8 @@ gem 'rubyzip'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
+ gem 'unicorn'
+
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 

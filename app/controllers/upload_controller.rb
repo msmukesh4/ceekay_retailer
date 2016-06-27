@@ -22,7 +22,7 @@ class UploadController < ApplicationController
                 v = File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
                 puts "uploading... : #{v} || path : #{path} || directory : #{directory}"
                 # if Upload.last.blank?
-                # Delayed::Job.enqueue UploadExcelToDb.new(path)
+                Delayed::Job.enqueue UploadExcelToDb.new(path)
 				# tmp =  params[:upload][:file].tempfile
 				# FileUtils.cp tmp.path, path
 
@@ -34,15 +34,14 @@ class UploadController < ApplicationController
 
 			    # if Upload.last.blank?
 			    flash[:notice] = "File being uploaded, Kindly wait"
-			     perform()
+			     # perform()
 				# rows = export_xls_to_db(path)
 				 # rows = perform(path)
-			    # upload = Upload.new
-			    # upload.file_name = name
-			    # upload.path = directory
-			    # upload.save
-			    # sleep(20)
-			    redirect_to(:controller => 'upload', :action => 'index')
+			    upload = Upload.new
+			    upload.file_name = name
+			    upload.path = directory
+			    upload.save
+			    redirect_to(:controller => 'retailer', :action => 'index')
 				# else
 					# flash[:notice] = "one excel file already uploaded"
 					# redirect_to(:controller => 'retailer', :action => 'index')
@@ -64,9 +63,9 @@ class UploadController < ApplicationController
 		
 	end
 
-# end
+end
 
-# class UploadExcelToDb < Struct.new(:xlsx)
+class UploadExcelToDb < Struct.new(:xlsx)
 
   	def perform
 	    row_number = -1
@@ -78,11 +77,8 @@ class UploadController < ApplicationController
 		
 		# parsing the rows of excel sheet
 		worksheet.each { |row|
-		  		  		puts "rcode:0"
 
 		  	if row_number >= 0
-		  		puts "rcode:1"
-
 		  		r_code = row.cells[0] && row.cells[0].value
 		  		if r_code.blank? 
 		  			break
@@ -129,10 +125,15 @@ class UploadController < ApplicationController
 		  	end
 		  	row_number += 1
 		  	puts row_number
+		  	if (row_number%50 == 0)
+		  		puts "running garbage collector"
+		  		GC.start
+		  	end
 		}
 		deactivateOldEntries(new_retailers_list)
-		Upload.last.is_completed = true
-		Upload.last.save
+		lastUpload = Upload.last
+		lastUpload.is_completed = true
+		lastUpload.save
 		puts Upload.last
 		puts "#{row_number } rows inserted"
 		flash[:notice] = "File upload completed"
