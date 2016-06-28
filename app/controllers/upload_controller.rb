@@ -21,8 +21,11 @@ class UploadController < ApplicationController
                 path = File.join(directory, "/ck_retailers.xlsx")
                 v = File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
                 puts "uploading... : #{v} || path : #{path} || directory : #{directory}"
+                workbook = RubyXL::Parser.parse("#{Rails.public_path}/ck_retailers.xlsx")
+				worksheet = workbook[0]
+				puts "wow, workbook : "+ worksheet.inspect
                 # if Upload.last.blank?
-                Delayed::Job.enqueue UploadExcelToDb.new(path)
+                Delayed::Job.enqueue UploadExcelToDb.new(worksheet)
 				# tmp =  params[:upload][:file].tempfile
 				# FileUtils.cp tmp.path, path
 
@@ -65,15 +68,13 @@ class UploadController < ApplicationController
 
 end
 
-class UploadExcelToDb < Struct.new(:xlsx)
+class UploadExcelToDb < Struct.new(:worksheet)
 
   	def perform
 	    row_number = -1
 		@user_count = 0
 		new_retailers_list = []
-		puts "path inside BG job : #{Rails.public_path}/ck_retailers.xlsx"
-		workbook = RubyXL::Parser.parse("#{Rails.public_path}/ck_retailers.xlsx")
-		worksheet = workbook[0]
+		
 		
 		# parsing the rows of excel sheet
 		worksheet.each { |row|
