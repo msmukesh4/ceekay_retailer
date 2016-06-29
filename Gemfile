@@ -40,6 +40,8 @@ gem 'delayed_job_active_record'
 
 gem 'roo', '~> 2.4.0'
 
+gem 'aws-sdk', '~> 2'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

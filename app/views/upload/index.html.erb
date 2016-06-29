@@ -4,17 +4,48 @@
     </div>
 <% end %>
 
-<%= link_to("<< Back to List", {:action => 'index'}, :class => 'back-link') %>
+<%= link_to("<< Back to List", {:controller => 'retailer', :action => 'index'}, :class => 'back-link') %>
 
-
-<div class = "well">
-   <%= form_tag '/upload/create', { :multipart => true } do %>
-    	<p>
-    		<%= file_field_tag 'upload[file]' %>
-    	</p>
-    	<p>
-            <%= submit_tag "Upload", :class => "form-button shadow-button" %>
-    	</p>
-
-	<% end %>
+<h4> Upload Excel File </h4>
+<div class="well">
+ <form class="upload-form">
+   <input id="image" type="file" name="image"/>
+   <button class="shadow-button form-button" type="submit">upload</button>
+</form>
 </div>
+
+<script type="text/javascript">
+    function upload_image (form) {
+        var field = $('.upload-form').find('input[name=image]');
+        var file = field[0].files[0];
+        var url = '<%=@presign_upload_path%>';
+        url = url.replace(/&amp;/g, '&');
+        console.log("file : "+file);
+                console.log("url : "+url);
+                console.log("file type : "+file.type);
+
+        $.ajax({
+            type : 'PUT',
+            url : url,
+            data : file,
+            processData: false,  // tell jQuery not to convert to form data
+            contentType: 'multipart/form-data',
+            success: function(json) { 
+                console.log('Upload complete!');
+                window.location.href = '/upload/create';
+                 },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log('Upload error: ' + errorThrown);
+                                console.log('Upload error: ' + XMLHttpRequest.response);
+                console.log('Upload error: ' + textStatus);
+
+            }
+        });
+    }
+
+
+    $('.upload-form').submit(function( event ) {
+        event.preventDefault();
+        upload_image(this);
+    });
+</script>

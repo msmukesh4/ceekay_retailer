@@ -3,7 +3,7 @@ CeekayRetailer::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
     
-    root to: 'user#login'
+    root to: 'retailer#index'
 
     ### Start API routes ###
 
@@ -36,6 +36,7 @@ CeekayRetailer::Application.routes.draw do
       end
 
    end
+
 
   ### End API routes ###
 
