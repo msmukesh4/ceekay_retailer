@@ -14,6 +14,11 @@ class RetailerController < ApplicationController
 		@latitude_search_param = params[:latitude]
 		@longitude_search_param = params[:longitude]
 		@address_search_param = params[:address]
+		lastUpload = Upload.last
+		@isUploadUnderProgress = !lastUpload.is_completed
+		if @isUploadUnderProgress
+			flash[:notice] = "An Upload is still under progress in the background!!"
+		end
 
 	    @retailers = Retailer.where("dse_code LIKE ? AND route_no LIKE ? AND retailer_name LIKE ? AND CAST(latitude AS text) LIKE ? AND CAST(longitude AS text) LIKE ? AND address LIKE ?" ,"%#{@dse_code_search_param}%","%#{@route_search_param}%","%#{@retailer_search_param}%","%#{@latitude_search_param}%","%#{@longitude_search_param}%","%#{@address_search_param}%").limit(Retailer::PER_PAGE).offset(@offset.to_i*Retailer::PER_PAGE)
 		puts "reatilers:  : #{@retailers.map(&:id).inspect}"
