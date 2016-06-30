@@ -99,8 +99,8 @@ class UploadExcelToDb
 		  		lastUpload = Upload.last
 				lastUpload.records_added = row_number
 				lastUpload.save
-				puts "updated databse with record entries update :"+lastUpload.records_added.to_s
-				puts "row count :"+row_number
+				puts "updated databse with record entries update : #{lastUpload.records_added}"
+				puts "row count :"+row_number.to_s
 
 		  	end
 		}
