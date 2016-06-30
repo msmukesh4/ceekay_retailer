@@ -95,6 +95,11 @@ class UploadExcelToDb
 		  		puts "running garbage collector"
 		  		GC.start
 		  	end
+		  	if (row_number%200 == 0)
+		  		lastUpload = Upload.last
+				lastUpload.records_added = row_number
+				lastUpload.save
+		  	end
 		}
 		deactivateOldEntries(new_retailers_list)
 		lastUpload = Upload.last
