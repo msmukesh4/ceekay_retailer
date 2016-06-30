@@ -124,8 +124,23 @@ class RetailerController < ApplicationController
 	end
 
 	def map
-		puts "dse_code : #{params[:dse_code]} || route : #{params[:route]}"
-		@retailers = Retailer.search(params[:dse_code], params[:route], params[:retailer_name], params[:retailer_code])
+		@dse_code_search_param = params[:dse_code]
+		@route_search_param = params[:route]
+		@retailer_search_param = params[:retailer_name]
+		@latitude_search_param = params[:latitude]
+		@longitude_search_param = params[:longitude]
+		@address_search_param = params[:address]
+		lastUpload = Upload.last
+		@isUploadUnderProgress = !lastUpload.is_completed
+		if @isUploadUnderProgress
+			flash[:notice] = "An Upload is still under progress in the background!!"
+		end
+
+		if @latitude_search_param.blank? and @longitude_search_param.blank?
+	    	@retailers = Retailer.where("dse_code LIKE ? AND route_no LIKE ? AND retailer_name LIKE ? AND CAST(latitude AS text) NOT LIKE ? AND CAST(longitude AS text) NOT LIKE ? AND address LIKE ?" ,"%#{@dse_code_search_param}%","%#{@route_search_param}%","%#{@retailer_search_param}%","%#{0.0}%","%#{0.0}%","%#{@address_search_param}%")
+		else
+			@retailers = Retailer.where("dse_code LIKE ? AND route_no LIKE ? AND retailer_name LIKE ? AND CAST(latitude AS text) LIKE ? AND CAST(longitude AS text) LIKE ? AND address LIKE ?" ,"%#{@dse_code_search_param}%","%#{@route_search_param}%","%#{@retailer_search_param}%","%#{@latitude_search_param}%","%#{@longitude_search_param}%","%#{@address_search_param}%")
+		end
 	end
 
 	def test

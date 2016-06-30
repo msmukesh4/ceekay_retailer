@@ -23,6 +23,7 @@
       <button onclick="myFunction()">Print this page</button>
 
       <script>
+
         var infoWindow = []
         function initMap3() {
           var myLatlng = []
@@ -34,17 +35,16 @@
 
           <% pos = 0%>
           <% @retailers.each do |rtlr|%>
-
-            myLatlng[i] = new google.maps.LatLng(<%= rtlr.latitude %>,<%= rtlr.longitude %>);
-            markers[i] = new google.maps.Marker({
-              position: myLatlng[i],
-              title: "<%= rtlr.retailer_name %>",
-              draggable: false
-            });
-            infoWindow[i] = new google.maps.InfoWindow({
-              content: "<%= rtlr.retailer_code %>",
-              maxWidth: 150
-            });
+              myLatlng[i] = new google.maps.LatLng(<%= rtlr.latitude %>,<%= rtlr.longitude %>);
+              markers[i] = new google.maps.Marker({
+                position: myLatlng[i],
+                title: "<%= rtlr.retailer_name %>",
+                draggable: false
+              });
+              infoWindow[i] = new google.maps.InfoWindow({
+                content: "<%= rtlr.retailer_code %>",
+                maxWidth: 150
+              });
             i++;
 
           <% end %>
@@ -68,11 +68,17 @@
 
         }
 
+          ajaxindicatorstart('Loading Data..');
+           $(document).ready(function(){
+            ajaxindicatorstop();
+
+           });
+
       </script>
 
 
       <% if !@retailers.blank? %>
-        <script src="https://maps.googleapis.com/maps/api/js?callback=initMap3"
+        <script src="https://maps.googleapis.com/maps/api/js?key=<%=ENV['GMAP_KEY']%>&callback=initMap3"
           async defer></script>
       <% else %>
         <%= puts "no retailers found"%>

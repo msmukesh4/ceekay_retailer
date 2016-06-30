@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require ajax-spinner
 //= require turbolinks
+//= require jquery.table2excel.min
 //= require_tree .
