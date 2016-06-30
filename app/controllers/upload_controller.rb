@@ -99,6 +99,9 @@ class UploadExcelToDb
 		  		lastUpload = Upload.last
 				lastUpload.records_added = row_number
 				lastUpload.save
+				puts "updated databse with record entries update :"+lastUpload.records_added.to_s
+				puts "row count :"+row_number
+
 		  	end
 		}
 		deactivateOldEntries(new_retailers_list)
