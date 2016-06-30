@@ -56,6 +56,14 @@
 		  alert(" All the retailers loaded !");
 		<%end%>
    }
+		var tableToExcel = (function() {
+			$("#retailer_table").table2excel({
+				// exclude CSS class
+				exclude: ".noExl",
+				name: "ceekay_export_worksheet",
+				filename: "ceekay_export" //do not include extension
+			});
+		})
 </script>
 
 
