@@ -6,7 +6,7 @@ class UploadController < ApplicationController
 
 
 	def index
-		@presign_upload_path = S3Manager.presign("ceekay.xlsx", 10.megabyte)
+		@presign_upload_path = S3Manager.presign("ceekay.xlsx", 30.megabyte)
 		puts "url in index: #{@presign_upload_path}"
 		respond_to do |format|
 			format.html
