@@ -70,7 +70,7 @@ class UploadExcelToDb
 			    retailer.route_no = r_route_no.to_i.to_s
 			    retailer.is_active = true
 
-			    usr = User.where(:dse_code => dse).first
+			    usr = User.where(:dse_code => dse.to_s).first
 			    puts usr.inspect
 			    if !usr
 			    	puts "DSE code not allocated to any user : #{dse}"
