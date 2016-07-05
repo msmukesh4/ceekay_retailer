@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160630214605) do
+ActiveRecord::Schema.define(version: 20160705034007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20160630214605) do
     t.decimal  "accurate_lat",               precision: 9, scale: 6, default: 0.0
     t.decimal  "accurate_long",              precision: 9, scale: 6, default: 0.0
     t.string   "accurate_address",                                   default: ""
+    t.string   "branch_code"
   end
 
   create_table "uploads", force: true do |t|

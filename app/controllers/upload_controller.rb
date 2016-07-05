@@ -50,12 +50,13 @@ class UploadExcelToDb
 		  			break
 		  		end
 		  		r_name = row.cells[1] && row.cells[1].value
-		  		dse = row.cells[2] && row.cells[2].value
-		  		r_route_no = row.cells[3] && row.cells[3].value
+		  		branch_code = row.cells[2] && row.cells[2].value
+		  		dse = row.cells[3] && row.cells[3].value
+		  		r_route_no = row.cells[4] && row.cells[4].value
 
-				puts "Details :  dse : #{dse} | rcode = #{r_code} | r_name = #{r_name} | r_route_no = #{r_route_no.to_i}"
+				puts "Details :  dse : #{dse} | rcode = #{r_code} | r_name = #{r_name} | branch : #{branch_code}|r_route_no = #{r_route_no.to_i}"
 				new_retailers_list.push(r_code)
-		  		retailer = Retailer.where(:retailer_code => r_code).first
+		  		retailer = Retailer.where(:retailer_code => r_code, :branch_code => branch_code).first
 
 		  		# retailer not found
 		  		if retailer.blank?
@@ -64,6 +65,7 @@ class UploadExcelToDb
 			   
 			    retailer.retailer_code = r_code
 			    retailer.retailer_name = r_name
+			    retailer.branch_code = branch_code
 			    retailer.dse_code = dse
 			    retailer.route_no = r_route_no.to_i.to_s
 			    retailer.is_active = true

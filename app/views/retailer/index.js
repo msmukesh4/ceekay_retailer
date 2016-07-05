@@ -4,7 +4,7 @@
 	<% pos = pos+1%>
 <% end %>
 <% if @retailers.count == Retailer::PER_PAGE %>
-	$.get('/retailer/index', {offset : "<%=@offset.to_i+1%>", route : "<%=@route_search_param%>", retailer_name : "<%=@retailer_search_param%>", latitude : "<%=@latitude_search_param%>", longitude : "<%=@longitude_search_param%>", address: "<%=@address_search_param%>" });
+	$.get('/retailer/index', {offset : "<%=@offset.to_i+1%>", route : "<%=@route_search_param%>", retailer_name : "<%=@retailer_search_param%>", branch : "<%=@branch_search_param%>", latitude : "<%=@latitude_search_param%>", longitude : "<%=@longitude_search_param%>", address: "<%=@address_search_param%>" });
 <%else%>
   alert(" All the retailers loaded !");
 <%end%>
