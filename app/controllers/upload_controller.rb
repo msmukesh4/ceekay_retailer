@@ -52,6 +52,7 @@ class UploadExcelToDb
 		  		r_name = row.cells[1] && row.cells[1].value
 		  		branch_code = row.cells[2] && row.cells[2].value
 		  		dse = row.cells[3] && row.cells[3].value
+		  		dse = dse.to_s
 		  		r_route_no = row.cells[4] && row.cells[4].value
 
 				puts "Details :  dse : #{dse} | rcode = #{r_code} | r_name = #{r_name} | branch : #{branch_code}|r_route_no = #{r_route_no.to_i}"
